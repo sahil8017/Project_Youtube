@@ -1,24 +1,26 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { 
-  MessageSquare, 
-  Search, 
-  Share, 
-  Archive, 
-  Trash2, 
-  Send, 
-  Paperclip, 
+import { ThemeToggle } from "@/components/theme-toggle";
+import {
+  MessageSquare,
+  Search,
+  Share,
+  Archive,
+  Trash2,
+  Send,
+  Paperclip,
   Volume2,
   Menu,
   X,
   Bot,
   User,
-  Plus
+  Plus,
+  Settings
 } from "lucide-react";
 
 interface Message {
