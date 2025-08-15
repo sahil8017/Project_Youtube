@@ -352,9 +352,11 @@ export default function Index() {
                       }}
                     />
                     <div className="absolute bottom-2 sm:bottom-3 right-2 sm:right-3 flex gap-1 sm:gap-2">
-                      <Button variant="ghost" size="icon" className="w-6 h-6 sm:w-8 sm:h-8 text-muted-foreground">
-                        <Paperclip className="w-3 h-3 sm:w-4 sm:h-4" />
-                      </Button>
+                      <FileUploadDialog>
+                        <Button variant="ghost" size="icon" className="w-6 h-6 sm:w-8 sm:h-8 text-muted-foreground">
+                          <Paperclip className="w-3 h-3 sm:w-4 sm:h-4" />
+                        </Button>
+                      </FileUploadDialog>
                       <Button
                         size="icon"
                         className="w-6 h-6 sm:w-8 sm:h-8"
