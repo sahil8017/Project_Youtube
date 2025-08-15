@@ -278,7 +278,7 @@ export default function Index() {
                   </div>
                 )}
                 
-                <div className={`max-w-[70%] ${message.type === 'user' ? 'order-first' : ''}`}>
+                <div className={`max-w-[80%] sm:max-w-[70%] ${message.type === 'user' ? 'order-first' : ''}`}>
                   <div
                     className={`rounded-2xl px-4 py-3 ${
                       message.type === 'user'
