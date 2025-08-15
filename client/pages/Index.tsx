@@ -211,15 +211,22 @@ export default function Index() {
 
             {/* User Account */}
             <div className="p-4 border-t border-chat-border">
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 mb-3">
                 <Avatar className="w-8 h-8">
                   <AvatarImage src="/api/placeholder/32/32" />
-                  <AvatarFallback>U</AvatarFallback>
+                  <AvatarFallback>JD</AvatarFallback>
                 </Avatar>
                 <div className="flex-1">
                   <p className="text-sm font-medium text-foreground">John Doe</p>
                   <p className="text-xs text-muted-foreground">john@example.com</p>
                 </div>
+              </div>
+              <div className="flex items-center justify-between">
+                <Button variant="ghost" size="sm" className="text-muted-foreground">
+                  <Settings className="w-4 h-4 mr-2" />
+                  Settings
+                </Button>
+                <ThemeToggle />
               </div>
             </div>
           </>
