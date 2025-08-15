@@ -327,12 +327,12 @@ export default function Index() {
         </ScrollArea>
 
         {/* Input Section */}
-        <div className="border-t border-chat-border bg-chat-background p-4">
+        <div className="border-t border-chat-border bg-chat-background p-3 sm:p-4">
           <div className="max-w-4xl mx-auto">
             <Tabs value={currentTab} onValueChange={setCurrentTab} className="w-full">
-              <TabsList className="grid w-full grid-cols-2 mb-4">
-                <TabsTrigger value="query">Query</TabsTrigger>
-                <TabsTrigger value="youtube">YouTube</TabsTrigger>
+              <TabsList className="grid w-full grid-cols-2 mb-3 sm:mb-4">
+                <TabsTrigger value="query" className="text-sm">Query</TabsTrigger>
+                <TabsTrigger value="youtube" className="text-sm">YouTube</TabsTrigger>
               </TabsList>
               
               <TabsContent value="query" className="space-y-3">
