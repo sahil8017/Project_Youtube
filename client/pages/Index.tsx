@@ -265,7 +265,7 @@ export default function Index() {
         </div>
 
         {/* Messages Area */}
-        <ScrollArea className="flex-1 p-4">
+        <ScrollArea className="flex-1 px-4 py-6">
           <div className="max-w-4xl mx-auto space-y-6">
             {messages.map((message) => (
               <div
