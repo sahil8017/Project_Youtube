@@ -57,6 +57,17 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        chat: {
+          background: "hsl(var(--chat-background))",
+          sidebar: "hsl(var(--chat-sidebar))",
+          "user-bubble": "hsl(var(--chat-user-bubble))",
+          "user-text": "hsl(var(--chat-user-text))",
+          "ai-bubble": "hsl(var(--chat-ai-bubble))",
+          "ai-text": "hsl(var(--chat-ai-text))",
+          border: "hsl(var(--chat-border))",
+          hover: "hsl(var(--chat-hover))",
+          input: "hsl(var(--chat-input))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
