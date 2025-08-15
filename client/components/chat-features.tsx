@@ -2,7 +2,15 @@ import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { Upload, FileText, Image } from "lucide-react";
 
 export function FileUploadDialog({ children }: { children: React.ReactNode }) {
@@ -15,14 +23,13 @@ export function FileUploadDialog({ children }: { children: React.ReactNode }) {
 
   return (
     <Dialog>
-      <DialogTrigger asChild>
-        {children}
-      </DialogTrigger>
+      <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Upload Files</DialogTitle>
           <DialogDescription>
-            Select files to attach to your message. Supports images, documents, and other file types.
+            Select files to attach to your message. Supports images, documents,
+            and other file types.
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
@@ -34,8 +41,11 @@ export function FileUploadDialog({ children }: { children: React.ReactNode }) {
             <div className="space-y-2">
               <Label>Selected Files:</Label>
               {selectedFiles.map((file, index) => (
-                <div key={index} className="flex items-center gap-2 p-2 border rounded-md">
-                  {file.type.startsWith('image/') ? (
+                <div
+                  key={index}
+                  className="flex items-center gap-2 p-2 border rounded-md"
+                >
+                  {file.type.startsWith("image/") ? (
                     <Image className="w-4 h-4" />
                   ) : (
                     <FileText className="w-4 h-4" />
@@ -59,20 +69,23 @@ export function FileUploadDialog({ children }: { children: React.ReactNode }) {
 
 export function YouTubeThumbnail({ url }: { url: string }) {
   const getVideoId = (url: string) => {
-    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+    const regExp =
+      /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
     const match = url.match(regExp);
     return match && match[2].length === 11 ? match[2] : null;
   };
 
   const videoId = getVideoId(url);
-  const thumbnailUrl = videoId ? `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg` : null;
+  const thumbnailUrl = videoId
+    ? `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`
+    : null;
 
   if (!thumbnailUrl) return null;
 
   return (
     <div className="relative rounded-lg overflow-hidden border border-chat-border max-w-sm">
-      <img 
-        src={thumbnailUrl} 
+      <img
+        src={thumbnailUrl}
         alt="YouTube Video Thumbnail"
         className="w-full h-auto"
         onError={(e) => {
