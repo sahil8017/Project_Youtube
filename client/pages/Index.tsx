@@ -127,9 +127,21 @@ export default function Index() {
   };
 
   return (
-    <div className="flex h-screen bg-chat-background">
+    <div className="flex h-screen bg-chat-background relative">
+      {/* Mobile Sidebar Overlay */}
+      {isMobile && sidebarOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 z-10"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
       {/* Left Sidebar */}
-      <div className={`${sidebarOpen ? 'w-80' : 'w-0'} transition-all duration-300 bg-chat-sidebar border-r border-chat-border flex flex-col overflow-hidden`}>
+      <div className={`${
+        sidebarOpen ? 'w-80' : 'w-0'
+      } ${
+        isMobile ? 'fixed left-0 top-0 h-full z-20' : 'relative'
+      } transition-all duration-300 bg-chat-sidebar border-r border-chat-border flex flex-col overflow-hidden`}>
         {sidebarOpen && (
           <>
             {/* Sidebar Header */}
