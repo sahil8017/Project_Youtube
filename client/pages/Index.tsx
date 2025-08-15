@@ -336,13 +336,13 @@ export default function Index() {
               </TabsList>
               
               <TabsContent value="query" className="space-y-3">
-                <div className="flex gap-3">
+                <div className="flex flex-col sm:flex-row gap-3">
                   <div className="flex-1 relative">
                     <Textarea
                       placeholder="Type your message here..."
                       value={queryInput}
                       onChange={(e) => setQueryInput(e.target.value)}
-                      className="min-h-[60px] pr-24 bg-chat-input border-chat-border resize-none"
+                      className="min-h-[60px] pr-20 sm:pr-24 bg-chat-input border-chat-border resize-none"
                       onKeyDown={(e) => {
                         if (e.key === 'Enter' && !e.shiftKey) {
                           e.preventDefault();
@@ -350,17 +350,17 @@ export default function Index() {
                         }
                       }}
                     />
-                    <div className="absolute bottom-3 right-3 flex gap-2">
-                      <Button variant="ghost" size="icon" className="w-8 h-8 text-muted-foreground">
-                        <Paperclip className="w-4 h-4" />
+                    <div className="absolute bottom-2 sm:bottom-3 right-2 sm:right-3 flex gap-1 sm:gap-2">
+                      <Button variant="ghost" size="icon" className="w-6 h-6 sm:w-8 sm:h-8 text-muted-foreground">
+                        <Paperclip className="w-3 h-3 sm:w-4 sm:h-4" />
                       </Button>
-                      <Button 
-                        size="icon" 
-                        className="w-8 h-8"
+                      <Button
+                        size="icon"
+                        className="w-6 h-6 sm:w-8 sm:h-8"
                         onClick={() => handleSendMessage(queryInput, 'query')}
                         disabled={!queryInput.trim() || isLoading}
                       >
-                        <Send className="w-4 h-4" />
+                        <Send className="w-3 h-3 sm:w-4 sm:h-4" />
                       </Button>
                     </div>
                   </div>
