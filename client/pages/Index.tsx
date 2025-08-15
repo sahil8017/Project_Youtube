@@ -368,7 +368,7 @@ export default function Index() {
               </TabsContent>
               
               <TabsContent value="youtube" className="space-y-3">
-                <div className="flex gap-3">
+                <div className="flex flex-col sm:flex-row gap-3">
                   <div className="flex-1">
                     <Input
                       placeholder="Paste YouTube video URL here..."
@@ -383,10 +383,10 @@ export default function Index() {
                       }}
                     />
                   </div>
-                  <Button 
+                  <Button
                     onClick={() => handleSendMessage(youtubeInput, 'youtube')}
                     disabled={!youtubeInput.trim() || isLoading}
-                    className="bg-primary hover:bg-primary/90"
+                    className="bg-primary hover:bg-primary/90 w-full sm:w-auto"
                   >
                     Summarize
                   </Button>
