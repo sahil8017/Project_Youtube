@@ -199,11 +199,11 @@ export default function Index() {
               </div>
 
               <Button
-                className="w-full mb-3 bg-primary hover:bg-primary/90"
+                className="w-full mb-3 bg-red-600 hover:bg-red-700 text-white"
                 onClick={() => {}}
               >
                 <Plus className="w-4 h-4 mr-2" />
-                New Chat
+                New Summary
               </Button>
 
               <div className="relative">
