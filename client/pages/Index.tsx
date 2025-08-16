@@ -314,7 +314,7 @@ export default function Index() {
               </Button>
             )}
             <h1 className="text-lg font-medium text-foreground">
-              YouTube Summarizer
+              {chats.find(chat => chat.isActive)?.title || "New Chat"}
             </h1>
           </div>
         </div>
