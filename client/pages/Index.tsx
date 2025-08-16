@@ -107,29 +107,27 @@ export default function Index() {
     {
       id: "1",
       type: "user",
-      content:
-        "Can you help me build a modern chat interface for my application?",
+      content: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
       timestamp: new Date(Date.now() - 1000 * 60 * 15),
     },
     {
       id: "2",
       type: "ai",
       content:
-        "Absolutely! I'd be happy to help you build a modern chat interface. Let me break down the key components you'll need:\n\n1. **Layout Structure**: A sidebar for navigation, main chat area, and input section\n2. **Message Components**: Styled bubbles for user and AI messages\n3. **Input Handling**: Support for text, files, and multimedia\n4. **Responsive Design**: Works well on all device sizes\n\nWould you like me to start with any specific component?",
+        '🎵 **"Never Gonna Give You Up" by Rick Astley**\n\n**Video Summary:**\nThis iconic 1987 music video features Rick Astley performing his hit song "Never Gonna Give You Up." The video has become a cultural phenomenon, particularly known for "Rickrolling."\n\n**Key Points:**\n• Duration: 3:33\n• Views: 1.4B+ views\n• Classic 80s production style\n• Features Rick Astley\'s distinctive dance moves\n• Became an internet meme in the 2000s\n\n**Main Themes:**\n- Commitment and loyalty in relationships\n- 80s pop culture and music\n- Internet culture and memes',
       timestamp: new Date(Date.now() - 1000 * 60 * 14),
     },
     {
       id: "3",
       type: "user",
-      content:
-        "Yes, that sounds perfect. Can you also include support for YouTube video analysis?",
+      content: "Can you provide more details about the cultural impact?",
       timestamp: new Date(Date.now() - 1000 * 60 * 10),
     },
     {
       id: "4",
       type: "ai",
       content:
-        "Great idea! I'll include YouTube video analysis capabilities. This will allow users to:\n\n• Paste YouTube links for automatic processing\n• Get video summaries and key insights\n• Analyze video content and extract information\n• Support for timestamps and chapter navigation\n\nThe interface will have separate input tabs for regular queries and YouTube links.",
+        "**Cultural Impact of 'Never Gonna Give You Up':**\n\n🌐 **Internet Phenomenon:**\n• 'Rickrolling' became one of the most famous internet memes\n• Started around 2007 when users would trick others into clicking the video\n• The song experienced a massive resurgence decades after its release\n\n📈 **Numbers & Recognition:**\n• Over 1.4 billion YouTube views\n• Reached #1 in 25 countries when originally released\n• Rick Astley embraced the meme culture\n• Featured in countless remixes and parodies\n\n🎭 **Legacy:**\n• Transformed from 80s hit to modern internet culture staple\n• Demonstrates how digital platforms can revive classic content\n• Rick Astley became an unexpected internet celebrity\n• The song is now synonymous with pranks and surprises online",
       timestamp: new Date(Date.now() - 1000 * 60 * 8),
     },
   ]);
