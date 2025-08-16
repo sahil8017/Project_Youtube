@@ -388,132 +388,71 @@ export default function Index() {
         </ScrollArea>
 
         {/* Input Section */}
-        <div className="border-t border-chat-border bg-chat-background p-3 sm:p-4">
-          <div className="max-w-4xl mx-auto">
-            <Tabs
-              value={currentTab}
-              onValueChange={setCurrentTab}
-              className="w-full"
-            >
-              <TabsList className="grid w-full grid-cols-2 mb-3 sm:mb-4">
-                <TabsTrigger value="youtube" className="text-sm">
-                  <svg className="w-4 h-4 mr-2" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                  </svg>
-                  YouTube URL
-                </TabsTrigger>
-                <TabsTrigger value="query" className="text-sm">
-                  <MessageSquare className="w-4 h-4 mr-2" />
-                  Ask Question
-                </TabsTrigger>
-              </TabsList>
+        <div className="border-t border-border bg-background p-4">
+          <div className="max-w-3xl mx-auto">
+            <div className="relative">
+              <Textarea
+                placeholder="Enter YouTube URL or ask a question..."
+                value={currentTab === "youtube" ? youtubeInput : queryInput}
+                onChange={(e) => {
+                  if (currentTab === "youtube") {
+                    setYoutubeInput(e.target.value);
+                  } else {
+                    setQueryInput(e.target.value);
+                  }
+                }}
+                className="w-full bg-input border-border rounded-xl resize-none pr-16 min-h-[50px]"
+                rows={1}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" && !e.shiftKey) {
+                    e.preventDefault();
+                    if (currentTab === "youtube") {
+                      handleSendMessage(youtubeInput, "youtube");
+                    } else {
+                      handleSendMessage(queryInput, "query");
+                    }
+                  }
+                }}
+              />
+              <div className="absolute right-3 bottom-3 flex items-center gap-2">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className={`w-8 h-8 ${isListening ? 'text-red-500 bg-red-50' : 'text-muted-foreground'}`}
+                  onClick={handleSpeechRecognition}
+                  title="Voice input"
+                >
+                  {isListening ? <MicOff className="w-4 h-4" /> : <Mic className="w-4 h-4" />}
+                </Button>
+                <Button
+                  size="icon"
+                  className="w-8 h-8 bg-primary hover:bg-primary/90 text-primary-foreground"
+                  onClick={() => {
+                    if (currentTab === "youtube") {
+                      handleSendMessage(youtubeInput, "youtube");
+                    } else {
+                      handleSendMessage(queryInput, "query");
+                    }
+                  }}
+                  disabled={
+                    (currentTab === "youtube" ? !youtubeInput.trim() : !queryInput.trim()) || isLoading
+                  }
+                >
+                  <Send className="w-4 h-4" />
+                </Button>
+              </div>
+            </div>
 
-              <TabsContent value="query" className="space-y-3">
-                <div className="flex flex-col sm:flex-row gap-3">
-                  <div className="flex-1 relative">
-                    <Textarea
-                      placeholder="Ask a follow-up question about the video..."
-                      value={queryInput}
-                      onChange={(e) => setQueryInput(e.target.value)}
-                      className="min-h-[60px] pr-20 sm:pr-24 bg-chat-input border-chat-border resize-none"
-                      onKeyDown={(e) => {
-                        if (e.key === "Enter" && !e.shiftKey) {
-                          e.preventDefault();
-                          handleSendMessage(queryInput, "query");
-                        }
-                      }}
-                    />
-                    <div className="absolute bottom-2 sm:bottom-3 right-2 sm:right-3 flex gap-1 sm:gap-2">
-                      <FileUploadDialog>
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          className="w-6 h-6 sm:w-8 sm:h-8 text-muted-foreground"
-                        >
-                          <Paperclip className="w-3 h-3 sm:w-4 sm:h-4" />
-                        </Button>
-                      </FileUploadDialog>
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        className={`w-6 h-6 sm:w-8 sm:h-8 ${isListening ? 'text-red-500 bg-red-50' : 'text-muted-foreground'}`}
-                        onClick={handleSpeechRecognition}
-                        title="Voice input"
-                      >
-                        {isListening ? (
-                          <MicOff className="w-3 h-3 sm:w-4 sm:h-4" />
-                        ) : (
-                          <Mic className="w-3 h-3 sm:w-4 sm:h-4" />
-                        )}
-                      </Button>
-                      <Button
-                        size="icon"
-                        className="w-6 h-6 sm:w-8 sm:h-8"
-                        onClick={() => handleSendMessage(queryInput, "query")}
-                        disabled={!queryInput.trim() || isLoading}
-                      >
-                        <Send className="w-3 h-3 sm:w-4 sm:h-4" />
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-              </TabsContent>
-
-              <TabsContent value="youtube" className="space-y-3">
-                <div className="flex flex-col sm:flex-row gap-3">
-                  <div className="flex-1">
-                    <Input
-                      placeholder="Paste YouTube URL here (e.g., https://youtube.com/watch?v=...)"
-                      value={youtubeInput}
-                      onChange={(e) => setYoutubeInput(e.target.value)}
-                      className="bg-chat-input border-chat-border"
-                      onKeyDown={(e) => {
-                        if (e.key === "Enter") {
-                          e.preventDefault();
-                          handleSendMessage(youtubeInput, "youtube");
-                        }
-                      }}
-                    />
-                    {youtubeInput && !youtubeInput.includes('youtube.com') && !youtubeInput.includes('youtu.be') && (
-                      <p className="text-xs text-yellow-600 mt-1">⚠️ Please enter a valid YouTube URL</p>
-                    )}
-                    <div className="flex gap-1 mt-2">
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        className={`${isListening ? 'text-red-500 bg-red-50' : 'text-muted-foreground'}`}
-                        onClick={handleSpeechRecognition}
-                        title="Voice input"
-                      >
-                        {isListening ? (
-                          <MicOff className="w-4 h-4 mr-1" />
-                        ) : (
-                          <Mic className="w-4 h-4 mr-1" />
-                        )}
-                        {isListening ? 'Stop' : 'Voice'}
-                      </Button>
-                    </div>
-                  </div>
-                  <Button
-                    onClick={() => handleSendMessage(youtubeInput, "youtube")}
-                    disabled={!youtubeInput.trim() || isLoading || (!youtubeInput.includes('youtube.com') && !youtubeInput.includes('youtu.be'))}
-                    className="bg-red-600 hover:bg-red-700 text-white w-full sm:w-auto"
-                  >
-                    {isLoading ? (
-                      <div className="flex items-center gap-2">
-                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                        Processing...
-                      </div>
-                    ) : (
-                      <>
-                        <Play className="w-4 h-4 mr-2" />
-                        Summarize
-                      </>
-                    )}
-                  </Button>
-                </div>
-              </TabsContent>
-            </Tabs>
+            <div className="flex items-center justify-center mt-3">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setCurrentTab(currentTab === "youtube" ? "query" : "youtube")}
+                className="text-xs text-muted-foreground"
+              >
+                {currentTab === "youtube" ? "Switch to Questions" : "Switch to YouTube URL"}
+              </Button>
+            </div>
           </div>
         </div>
       </div>
