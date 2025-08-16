@@ -22,6 +22,12 @@ import {
   User,
   Plus,
   Settings,
+  Play,
+  Clock,
+  Eye,
+  Download,
+  Bookmark,
+  ExternalLink,
 } from "lucide-react";
 
 interface Message {
