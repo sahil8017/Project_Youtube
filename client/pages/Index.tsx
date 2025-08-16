@@ -155,7 +155,7 @@ export default function Index() {
       id: "2",
       type: "ai",
       content:
-        '🎵 **"Never Gonna Give You Up" by Rick Astley**\n\n**Video Summary:**\nThis iconic 1987 music video features Rick Astley performing his hit song "Never Gonna Give You Up." The video has become a cultural phenomenon, particularly known for "Rickrolling."\n\n**Key Points:**\n• Duration: 3:33\n• Views: 1.4B+ views\n• Classic 80s production style\n�� Features Rick Astley\'s distinctive dance moves\n• Became an internet meme in the 2000s\n\n**Main Themes:**\n- Commitment and loyalty in relationships\n- 80s pop culture and music\n- Internet culture and memes',
+        '🎵 **"Never Gonna Give You Up" by Rick Astley**\n\n**Video Summary:**\nThis iconic 1987 music video features Rick Astley performing his hit song "Never Gonna Give You Up." The video has become a cultural phenomenon, particularly known for "Rickrolling."\n\n**Key Points:**\n• Duration: 3:33\n• Views: 1.4B+ views\n• Classic 80s production style\n• Features Rick Astley\'s distinctive dance moves\n• Became an internet meme in the 2000s\n\n**Main Themes:**\n- Commitment and loyalty in relationships\n- 80s pop culture and music\n- Internet culture and memes',
       timestamp: new Date(Date.now() - 1000 * 60 * 14),
     },
     {
@@ -239,42 +239,25 @@ export default function Index() {
           <>
             {/* Sidebar Header */}
             <div className="p-4 border-b border-chat-border">
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 bg-red-600 rounded-lg flex items-center justify-center">
-                    <svg className="w-5 h-5 text-white" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                    </svg>
-                  </div>
-                  <span className="font-semibold text-foreground">YT Summarizer</span>
-                </div>
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-lg font-semibold text-foreground">YouTube Summarizer</h2>
                 <Button
                   variant="ghost"
                   size="icon"
                   onClick={() => setSidebarOpen(false)}
-                  className="text-muted-foreground"
+                  className="text-muted-foreground hover:bg-accent"
                 >
                   <X className="w-4 h-4" />
                 </Button>
               </div>
 
               <Button
-                className="w-full mb-3 bg-red-600 hover:bg-red-700 text-white"
+                className="w-full mb-6 bg-primary hover:bg-primary/90 text-primary-foreground rounded-lg"
                 onClick={() => {}}
               >
                 <Plus className="w-4 h-4 mr-2" />
-                New Summary
+                New chat
               </Button>
-
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
-                <Input
-                  placeholder="Search summaries..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-9 bg-chat-input border-chat-border"
-                />
-              </div>
             </div>
 
             {/* Chat List */}
