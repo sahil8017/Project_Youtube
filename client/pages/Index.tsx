@@ -61,6 +61,8 @@ export default function Index() {
   const [youtubeInput, setYoutubeInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [isListening, setIsListening] = useState(false);
+  const [recognition, setRecognition] = useState<SpeechRecognition | null>(null);
 
   useEffect(() => {
     const checkIsMobile = () => {
