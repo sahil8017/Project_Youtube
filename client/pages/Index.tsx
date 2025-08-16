@@ -563,6 +563,19 @@ export default function Index() {
                         </Button>
                       </FileUploadDialog>
                       <Button
+                        variant="ghost"
+                        size="icon"
+                        className={`w-6 h-6 sm:w-8 sm:h-8 ${isListening ? 'text-red-500 bg-red-50' : 'text-muted-foreground'}`}
+                        onClick={handleSpeechRecognition}
+                        title="Voice input"
+                      >
+                        {isListening ? (
+                          <MicOff className="w-3 h-3 sm:w-4 sm:h-4" />
+                        ) : (
+                          <Mic className="w-3 h-3 sm:w-4 sm:h-4" />
+                        )}
+                      </Button>
+                      <Button
                         size="icon"
                         className="w-6 h-6 sm:w-8 sm:h-8"
                         onClick={() => handleSendMessage(queryInput, "query")}
