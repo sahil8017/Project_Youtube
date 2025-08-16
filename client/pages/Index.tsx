@@ -392,7 +392,12 @@ export default function Index() {
           <div className="max-w-3xl mx-auto">
             <div className="relative">
               <Textarea
-                placeholder="Enter YouTube URL or ask a question..."
+                key={currentTab}
+                placeholder={
+                  currentTab === "youtube"
+                    ? "Enter YouTube URL..."
+                    : "Ask a question..."
+                }
                 value={currentTab === "youtube" ? youtubeInput : queryInput}
                 onChange={(e) => {
                   if (currentTab === "youtube") {
@@ -401,7 +406,7 @@ export default function Index() {
                     setQueryInput(e.target.value);
                   }
                 }}
-                className="w-full bg-input border-border rounded-xl resize-none pr-16 min-h-[50px]"
+                className="w-full bg-input border-border rounded-xl resize-none pr-16 min-h-[50px] transition-all duration-200 ease-in-out"
                 rows={1}
                 onKeyDown={(e) => {
                   if (e.key === "Enter" && !e.shiftKey) {
