@@ -70,19 +70,35 @@ export function FileUploadDialog({ children }: { children: React.ReactNode }) {
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
-          <div className="grid w-full items-center gap-1.5">
-            <Label htmlFor="file">Choose Files</Label>
+          {/* Drag and Drop Area */}
+          <div
+            className={`border-2 border-dashed rounded-lg p-6 text-center transition-colors ${
+              isDragOver
+                ? 'border-primary bg-primary/5'
+                : 'border-muted-foreground/25 hover:border-muted-foreground/50'
+            }`}
+            onDrop={handleDrop}
+            onDragOver={handleDragOver}
+            onDragLeave={handleDragLeave}
+          >
+            <Upload className="w-8 h-8 mx-auto mb-2 text-muted-foreground" />
+            <p className="text-sm font-medium">
+              Drag and drop files here, or{" "}
+              <Label htmlFor="file" className="text-primary cursor-pointer hover:underline">
+                browse
+              </Label>
+            </p>
+            <p className="text-xs text-muted-foreground mt-1">
+              Images, Videos, Audio, PDF, Word, Excel, PowerPoint, Text, Archives
+            </p>
             <Input
               id="file"
               type="file"
               multiple
               onChange={handleFileSelect}
               accept="image/*,video/*,audio/*,.pdf,.doc,.docx,.txt,.csv,.xlsx,.ppt,.pptx,.zip,.rar"
-              className="cursor-pointer"
+              className="hidden"
             />
-            <p className="text-xs text-muted-foreground">
-              Supports: Images, Videos, Audio, PDF, Word, Excel, PowerPoint, Text, Archives
-            </p>
           </div>
           {selectedFiles.length > 0 && (
             <div className="space-y-2 max-h-60 overflow-y-auto">
