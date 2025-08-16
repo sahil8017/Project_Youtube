@@ -415,10 +415,20 @@ export default function Index() {
                 }}
               />
               <div className="absolute right-3 bottom-3 flex items-center gap-2">
+                <FileUploadDialog>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="w-8 h-8 text-muted-foreground hover:bg-accent"
+                    title="Upload files"
+                  >
+                    <Paperclip className="w-4 h-4" />
+                  </Button>
+                </FileUploadDialog>
                 <Button
                   variant="ghost"
                   size="icon"
-                  className={`w-8 h-8 ${isListening ? 'text-red-500 bg-red-50' : 'text-muted-foreground'}`}
+                  className={`w-8 h-8 ${isListening ? 'text-red-500 bg-red-50' : 'text-muted-foreground hover:bg-accent'}`}
                   onClick={handleSpeechRecognition}
                   title="Voice input"
                 >
