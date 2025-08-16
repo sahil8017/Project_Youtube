@@ -463,9 +463,9 @@ export default function Index() {
                 variant="ghost"
                 size="sm"
                 onClick={() => setCurrentTab(currentTab === "youtube" ? "query" : "youtube")}
-                className="text-xs text-muted-foreground"
+                className="text-xs text-muted-foreground hover:text-foreground transition-colors duration-200"
               >
-                {currentTab === "youtube" ? "Switch to Questions" : "Switch to YouTube URL"}
+                {currentTab === "youtube" ? "💬 Switch to Questions" : "🎬 Switch to YouTube URL"}
               </Button>
             </div>
           </div>
