@@ -301,56 +301,21 @@ export default function Index() {
       {/* Main Chat Area */}
       <div className="flex-1 flex flex-col">
         {/* Top Controls */}
-        <div className="flex items-center justify-between p-4 border-b border-chat-border bg-chat-background">
-          <div className="flex items-center gap-2">
+        <div className="flex items-center justify-between p-4 border-b border-border bg-background">
+          <div className="flex items-center gap-3">
             {!sidebarOpen && (
               <Button
                 variant="ghost"
                 size="icon"
                 onClick={() => setSidebarOpen(true)}
-                className="text-muted-foreground"
+                className="text-muted-foreground hover:bg-accent"
               >
                 <Menu className="w-4 h-4" />
               </Button>
             )}
-            <h1 className="font-semibold text-foreground">
-              10 Minute React Tutorial
+            <h1 className="text-lg font-medium text-foreground">
+              YouTube Summarizer
             </h1>
-          </div>
-
-          <div className="flex items-center gap-2">
-            <Button
-              variant="ghost"
-              size="icon"
-              className="text-muted-foreground"
-              title="Export Summary"
-            >
-              <Download className="w-4 h-4" />
-            </Button>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="text-muted-foreground"
-              title="Save Summary"
-            >
-              <Bookmark className="w-4 h-4" />
-            </Button>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="text-muted-foreground"
-              title="Share Summary"
-            >
-              <Share className="w-4 h-4" />
-            </Button>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="text-muted-foreground"
-              title="Delete Summary"
-            >
-              <Trash2 className="w-4 h-4" />
-            </Button>
           </div>
         </div>
 
