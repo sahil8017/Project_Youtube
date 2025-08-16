@@ -306,7 +306,7 @@ export default function Index() {
               </Button>
             )}
             <h1 className="font-semibold text-foreground">
-              Product Roadmap Discussion
+              10 Minute React Tutorial
             </h1>
           </div>
 
