@@ -322,6 +322,23 @@ export default function Index() {
               variant="ghost"
               size="icon"
               className="text-muted-foreground"
+              title="Export Summary"
+            >
+              <Download className="w-4 h-4" />
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="text-muted-foreground"
+              title="Save Summary"
+            >
+              <Bookmark className="w-4 h-4" />
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="text-muted-foreground"
+              title="Share Summary"
             >
               <Share className="w-4 h-4" />
             </Button>
@@ -329,13 +346,7 @@ export default function Index() {
               variant="ghost"
               size="icon"
               className="text-muted-foreground"
-            >
-              <Archive className="w-4 h-4" />
-            </Button>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="text-muted-foreground"
+              title="Delete Summary"
             >
               <Trash2 className="w-4 h-4" />
             </Button>
