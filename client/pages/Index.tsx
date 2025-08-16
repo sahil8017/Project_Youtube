@@ -47,7 +47,7 @@ interface Chat {
 export default function Index() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const [currentTab, setCurrentTab] = useState("query");
+  const [currentTab, setCurrentTab] = useState("youtube");
   const [queryInput, setQueryInput] = useState("");
   const [youtubeInput, setYoutubeInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
