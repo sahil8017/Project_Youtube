@@ -437,7 +437,7 @@ export default function Index() {
                 <div className="flex flex-col sm:flex-row gap-3">
                   <div className="flex-1 relative">
                     <Textarea
-                      placeholder="Type your message here..."
+                      placeholder="Ask a follow-up question about the video..."
                       value={queryInput}
                       onChange={(e) => setQueryInput(e.target.value)}
                       className="min-h-[60px] pr-20 sm:pr-24 bg-chat-input border-chat-border resize-none"
