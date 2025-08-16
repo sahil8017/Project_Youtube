@@ -366,7 +366,44 @@ export default function Index() {
                         : "bg-chat-ai-bubble text-chat-ai-text"
                     }`}
                   >
-                    <p className="whitespace-pre-wrap">{message.content}</p>
+                    {message.type === "user" && message.content.includes("youtube.com") ? (
+                      <div className="space-y-3">
+                        <VideoCard
+                          video={{
+                            id: "dQw4w9WgXcQ",
+                            title: "Rick Astley - Never Gonna Give You Up (Official Music Video)",
+                            channel: "Rick Astley",
+                            duration: "3:33",
+                            views: "1.4B",
+                            publishedAt: "12 years ago",
+                            thumbnailUrl: "https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg",
+                            url: message.content
+                          }}
+                        />
+                      </div>
+                    ) : message.type === "ai" && message.content.includes("Video Summary") ? (
+                      <div className="space-y-4">
+                        <p className="whitespace-pre-wrap">{message.content}</p>
+                        <VideoSummary
+                          sections={[
+                            { timestamp: "0:00", title: "Introduction", content: "Rick Astley introduces the song and music video concept" },
+                            { timestamp: "0:30", title: "Verse 1", content: "Main lyrics about commitment and never giving up" },
+                            { timestamp: "1:15", title: "Chorus", content: "The iconic 'Never gonna give you up' hook" },
+                            { timestamp: "2:00", title: "Dance Sequence", content: "Rick's signature dance moves and choreography" },
+                            { timestamp: "3:00", title: "Outro", content: "Final chorus and fade out" }
+                          ]}
+                          keyPoints={[
+                            "Classic 80s production and music video style",
+                            "Became an internet meme known as 'Rickrolling'",
+                            "Over 1.4 billion views on YouTube",
+                            "Features Rick Astley's distinctive vocals and dance moves"
+                          ]}
+                          mainTopics={["80s Music", "Pop Culture", "Internet Memes", "Music Video", "Dance"]}
+                        />
+                      </div>
+                    ) : (
+                      <p className="whitespace-pre-wrap">{message.content}</p>
+                    )}
                   </div>
 
                   <div className="flex items-center gap-2 mt-2 px-2">
