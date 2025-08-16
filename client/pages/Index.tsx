@@ -62,7 +62,9 @@ export default function Index() {
   const [isLoading, setIsLoading] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [isListening, setIsListening] = useState(false);
-  const [recognition, setRecognition] = useState<SpeechRecognition | null>(null);
+  const [recognition, setRecognition] = useState<SpeechRecognition | null>(
+    null,
+  );
 
   useEffect(() => {
     const checkIsMobile = () => {
@@ -78,8 +80,12 @@ export default function Index() {
     window.addEventListener("resize", checkIsMobile);
 
     // Initialize speech recognition
-    if (typeof window !== "undefined" && ("webkitSpeechRecognition" in window || "SpeechRecognition" in window)) {
-      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (
+      typeof window !== "undefined" &&
+      ("webkitSpeechRecognition" in window || "SpeechRecognition" in window)
+    ) {
+      const SpeechRecognition =
+        window.SpeechRecognition || window.webkitSpeechRecognition;
       const recognitionInstance = new SpeechRecognition();
       recognitionInstance.continuous = false;
       recognitionInstance.interimResults = false;
@@ -88,9 +94,9 @@ export default function Index() {
       recognitionInstance.onresult = (event) => {
         const transcript = event.results[0][0].transcript;
         if (currentTab === "youtube") {
-          setYoutubeInput(prev => prev + (prev ? " " : "") + transcript);
+          setYoutubeInput((prev) => prev + (prev ? " " : "") + transcript);
         } else {
-          setQueryInput(prev => prev + (prev ? " " : "") + transcript);
+          setQueryInput((prev) => prev + (prev ? " " : "") + transcript);
         }
         setIsListening(false);
       };
@@ -114,32 +120,37 @@ export default function Index() {
     {
       id: "1",
       title: "10 Minute React Tutorial",
-      lastMessage: "This video covers React basics including components, props, and state management...",
+      lastMessage:
+        "This video covers React basics including components, props, and state management...",
       timestamp: new Date(Date.now() - 1000 * 60 * 30),
       isActive: true,
     },
     {
       id: "2",
       title: "Node.js Crash Course 2024",
-      lastMessage: "Key points: Express setup, middleware, routing, and database integration...",
+      lastMessage:
+        "Key points: Express setup, middleware, routing, and database integration...",
       timestamp: new Date(Date.now() - 1000 * 60 * 60 * 2),
     },
     {
       id: "3",
       title: "AI and Machine Learning Explained",
-      lastMessage: "The video explains neural networks, training processes, and practical applications...",
+      lastMessage:
+        "The video explains neural networks, training processes, and practical applications...",
       timestamp: new Date(Date.now() - 1000 * 60 * 60 * 24),
     },
     {
       id: "4",
       title: "TypeScript for Beginners",
-      lastMessage: "Covers type annotations, interfaces, generics, and TypeScript configuration...",
+      lastMessage:
+        "Covers type annotations, interfaces, generics, and TypeScript configuration...",
       timestamp: new Date(Date.now() - 1000 * 60 * 60 * 24 * 2),
     },
     {
       id: "5",
       title: "CSS Grid vs Flexbox",
-      lastMessage: "Comparison of layout methods, when to use each, and practical examples...",
+      lastMessage:
+        "Comparison of layout methods, when to use each, and practical examples...",
       timestamp: new Date(Date.now() - 1000 * 60 * 60 * 24 * 3),
     },
   ]);
@@ -154,7 +165,8 @@ export default function Index() {
     {
       id: "2",
       type: "ai",
-      content: "I've analyzed the YouTube video. This is \"Never Gonna Give You Up\" by Rick Astley, the famous 1987 hit that became an internet meme known as \"Rickrolling.\"\n\nKey details:\n• Duration: 3:33\n• Views: 1.4B+\n• Released: 1987\n• Genre: Pop\n\nThe video features classic 80s production style and Rick Astley's distinctive dance moves. It became a cultural phenomenon when internet users began using it for pranks in the 2000s.",
+      content:
+        'I\'ve analyzed the YouTube video. This is "Never Gonna Give You Up" by Rick Astley, the famous 1987 hit that became an internet meme known as "Rickrolling."\n\nKey details:\n• Duration: 3:33\n• Views: 1.4B+\n• Released: 1987\n• Genre: Pop\n\nThe video features classic 80s production style and Rick Astley\'s distinctive dance moves. It became a cultural phenomenon when internet users began using it for pranks in the 2000s.',
       timestamp: new Date(Date.now() - 1000 * 60 * 14),
     },
     {
@@ -166,7 +178,8 @@ export default function Index() {
     {
       id: "4",
       type: "ai",
-      content: "The \"Rickrolling\" meme started around 2007. People would share links claiming to be something else, but they actually led to this music video. It became popular because:\n\n• The song is unexpectedly catchy and wholesome\n• Rick Astley's earnest performance contrasts with prank context\n• The video quality and 80s aesthetic became nostalgic\n• Rick Astley himself embraced the meme good-naturedly\n\nIt's one of the most enduring internet memes and helped introduce the song to new generations.",
+      content:
+        "The \"Rickrolling\" meme started around 2007. People would share links claiming to be something else, but they actually led to this music video. It became popular because:\n\n• The song is unexpectedly catchy and wholesome\n• Rick Astley's earnest performance contrasts with prank context\n• The video quality and 80s aesthetic became nostalgic\n• Rick Astley himself embraced the meme good-naturedly\n\nIt's one of the most enduring internet memes and helped introduce the song to new generations.",
       timestamp: new Date(Date.now() - 1000 * 60 * 8),
     },
   ]);
@@ -238,7 +251,9 @@ export default function Index() {
             {/* Sidebar Header */}
             <div className="p-4 border-b border-chat-border">
               <div className="flex items-center justify-between mb-6">
-                <h2 className="text-lg font-semibold text-foreground">YouTube Summarizer</h2>
+                <h2 className="text-lg font-semibold text-foreground">
+                  YouTube Summarizer
+                </h2>
                 <Button
                   variant="ghost"
                   size="icon"
@@ -314,7 +329,7 @@ export default function Index() {
               </Button>
             )}
             <h1 className="text-lg font-medium text-foreground">
-              {chats.find(chat => chat.isActive)?.title || "New Chat"}
+              {chats.find((chat) => chat.isActive)?.title || "New Chat"}
             </h1>
           </div>
         </div>
@@ -343,7 +358,9 @@ export default function Index() {
                         : "bg-chat-ai-bubble text-chat-ai-text"
                     }`}
                   >
-                    <div className="whitespace-pre-wrap text-sm leading-relaxed">{message.content}</div>
+                    <div className="whitespace-pre-wrap text-sm leading-relaxed">
+                      {message.content}
+                    </div>
                   </div>
 
                   <div className="flex items-center gap-2 mt-2 px-2">
@@ -433,11 +450,15 @@ export default function Index() {
                 <Button
                   variant="ghost"
                   size="icon"
-                  className={`w-8 h-8 ${isListening ? 'text-red-500 bg-red-50' : 'text-muted-foreground hover:bg-accent'}`}
+                  className={`w-8 h-8 ${isListening ? "text-red-500 bg-red-50" : "text-muted-foreground hover:bg-accent"}`}
                   onClick={handleSpeechRecognition}
                   title="Voice input"
                 >
-                  {isListening ? <MicOff className="w-4 h-4" /> : <Mic className="w-4 h-4" />}
+                  {isListening ? (
+                    <MicOff className="w-4 h-4" />
+                  ) : (
+                    <Mic className="w-4 h-4" />
+                  )}
                 </Button>
                 <Button
                   size="icon"
@@ -450,7 +471,9 @@ export default function Index() {
                     }
                   }}
                   disabled={
-                    (currentTab === "youtube" ? !youtubeInput.trim() : !queryInput.trim()) || isLoading
+                    (currentTab === "youtube"
+                      ? !youtubeInput.trim()
+                      : !queryInput.trim()) || isLoading
                   }
                 >
                   <Send className="w-4 h-4" />
@@ -462,10 +485,14 @@ export default function Index() {
               <Button
                 variant="ghost"
                 size="sm"
-                onClick={() => setCurrentTab(currentTab === "youtube" ? "query" : "youtube")}
+                onClick={() =>
+                  setCurrentTab(currentTab === "youtube" ? "query" : "youtube")
+                }
                 className="text-xs text-muted-foreground hover:text-foreground transition-colors duration-200"
               >
-                {currentTab === "youtube" ? "💬 Switch to Questions" : "🎬 Switch to YouTube URL"}
+                {currentTab === "youtube"
+                  ? "💬 Switch to Questions"
+                  : "🎬 Switch to YouTube URL"}
               </Button>
             </div>
           </div>

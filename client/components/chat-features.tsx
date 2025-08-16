@@ -11,7 +11,15 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Upload, FileText, Image, File, FileVideo, FileAudio, X } from "lucide-react";
+import {
+  Upload,
+  FileText,
+  Image,
+  File,
+  FileVideo,
+  FileAudio,
+  X,
+} from "lucide-react";
 
 export function FileUploadDialog({ children }: { children: React.ReactNode }) {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
@@ -19,14 +27,14 @@ export function FileUploadDialog({ children }: { children: React.ReactNode }) {
 
   const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(event.target.files || []);
-    setSelectedFiles(prev => [...prev, ...files]);
+    setSelectedFiles((prev) => [...prev, ...files]);
   };
 
   const handleDrop = (event: React.DragEvent) => {
     event.preventDefault();
     setIsDragOver(false);
     const files = Array.from(event.dataTransfer.files);
-    setSelectedFiles(prev => [...prev, ...files]);
+    setSelectedFiles((prev) => [...prev, ...files]);
   };
 
   const handleDragOver = (event: React.DragEvent) => {
@@ -40,23 +48,27 @@ export function FileUploadDialog({ children }: { children: React.ReactNode }) {
   };
 
   const removeFile = (index: number) => {
-    setSelectedFiles(files => files.filter((_, i) => i !== index));
+    setSelectedFiles((files) => files.filter((_, i) => i !== index));
   };
 
   const getFileIcon = (fileType: string) => {
-    if (fileType.startsWith("image/")) return <Image className="w-4 h-4 text-blue-500" />;
-    if (fileType.startsWith("video/")) return <FileVideo className="w-4 h-4 text-purple-500" />;
-    if (fileType.startsWith("audio/")) return <FileAudio className="w-4 h-4 text-green-500" />;
-    if (fileType.includes("pdf")) return <FileText className="w-4 h-4 text-red-500" />;
+    if (fileType.startsWith("image/"))
+      return <Image className="w-4 h-4 text-blue-500" />;
+    if (fileType.startsWith("video/"))
+      return <FileVideo className="w-4 h-4 text-purple-500" />;
+    if (fileType.startsWith("audio/"))
+      return <FileAudio className="w-4 h-4 text-green-500" />;
+    if (fileType.includes("pdf"))
+      return <FileText className="w-4 h-4 text-red-500" />;
     return <File className="w-4 h-4 text-gray-500" />;
   };
 
   const formatFileSize = (bytes: number) => {
-    if (bytes === 0) return '0 Bytes';
+    if (bytes === 0) return "0 Bytes";
     const k = 1024;
-    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+    const sizes = ["Bytes", "KB", "MB", "GB"];
     const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
   };
 
   return (
@@ -66,7 +78,8 @@ export function FileUploadDialog({ children }: { children: React.ReactNode }) {
         <DialogHeader>
           <DialogTitle>Upload Files</DialogTitle>
           <DialogDescription>
-            Upload images, documents, videos, audio files, and more. Multiple files supported.
+            Upload images, documents, videos, audio files, and more. Multiple
+            files supported.
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
@@ -74,8 +87,8 @@ export function FileUploadDialog({ children }: { children: React.ReactNode }) {
           <div
             className={`border-2 border-dashed rounded-lg p-6 text-center transition-colors ${
               isDragOver
-                ? 'border-primary bg-primary/5'
-                : 'border-muted-foreground/25 hover:border-muted-foreground/50'
+                ? "border-primary bg-primary/5"
+                : "border-muted-foreground/25 hover:border-muted-foreground/50"
             }`}
             onDrop={handleDrop}
             onDragOver={handleDragOver}
@@ -84,12 +97,16 @@ export function FileUploadDialog({ children }: { children: React.ReactNode }) {
             <Upload className="w-8 h-8 mx-auto mb-2 text-muted-foreground" />
             <p className="text-sm font-medium">
               Drag and drop files here, or{" "}
-              <Label htmlFor="file" className="text-primary cursor-pointer hover:underline">
+              <Label
+                htmlFor="file"
+                className="text-primary cursor-pointer hover:underline"
+              >
                 browse
               </Label>
             </p>
             <p className="text-xs text-muted-foreground mt-1">
-              Images, Videos, Audio, PDF, Word, Excel, PowerPoint, Text, Archives
+              Images, Videos, Audio, PDF, Word, Excel, PowerPoint, Text,
+              Archives
             </p>
             <Input
               id="file"
@@ -112,7 +129,8 @@ export function FileUploadDialog({ children }: { children: React.ReactNode }) {
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-medium truncate">{file.name}</p>
                     <p className="text-xs text-muted-foreground">
-                      {formatFileSize(file.size)} • {file.type || 'Unknown type'}
+                      {formatFileSize(file.size)} •{" "}
+                      {file.type || "Unknown type"}
                     </p>
                   </div>
                   <Button
@@ -133,7 +151,8 @@ export function FileUploadDialog({ children }: { children: React.ReactNode }) {
             Clear All
           </Button>
           <Button type="submit" disabled={selectedFiles.length === 0}>
-            Upload {selectedFiles.length > 0 && `(${selectedFiles.length})`} & Send
+            Upload {selectedFiles.length > 0 && `(${selectedFiles.length})`} &
+            Send
           </Button>
         </DialogFooter>
       </DialogContent>
