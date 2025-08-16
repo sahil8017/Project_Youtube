@@ -11,7 +11,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Upload, FileText, Image } from "lucide-react";
+import { Upload, FileText, Image, File, FileVideo, FileAudio, X } from "lucide-react";
 
 export function FileUploadDialog({ children }: { children: React.ReactNode }) {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
@@ -19,6 +19,26 @@ export function FileUploadDialog({ children }: { children: React.ReactNode }) {
   const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(event.target.files || []);
     setSelectedFiles(files);
+  };
+
+  const removeFile = (index: number) => {
+    setSelectedFiles(files => files.filter((_, i) => i !== index));
+  };
+
+  const getFileIcon = (fileType: string) => {
+    if (fileType.startsWith("image/")) return <Image className="w-4 h-4 text-blue-500" />;
+    if (fileType.startsWith("video/")) return <FileVideo className="w-4 h-4 text-purple-500" />;
+    if (fileType.startsWith("audio/")) return <FileAudio className="w-4 h-4 text-green-500" />;
+    if (fileType.includes("pdf")) return <FileText className="w-4 h-4 text-red-500" />;
+    return <File className="w-4 h-4 text-gray-500" />;
+  };
+
+  const formatFileSize = (bytes: number) => {
+    if (bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
   };
 
   return (
