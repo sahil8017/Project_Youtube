@@ -29,6 +29,8 @@ import {
   Download,
   Bookmark,
   ExternalLink,
+  Mic,
+  MicOff,
 } from "lucide-react";
 
 interface Message {
