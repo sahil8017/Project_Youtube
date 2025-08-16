@@ -606,6 +606,22 @@ export default function Index() {
                     {youtubeInput && !youtubeInput.includes('youtube.com') && !youtubeInput.includes('youtu.be') && (
                       <p className="text-xs text-yellow-600 mt-1">⚠️ Please enter a valid YouTube URL</p>
                     )}
+                    <div className="flex gap-1 mt-2">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className={`${isListening ? 'text-red-500 bg-red-50' : 'text-muted-foreground'}`}
+                        onClick={handleSpeechRecognition}
+                        title="Voice input"
+                      >
+                        {isListening ? (
+                          <MicOff className="w-4 h-4 mr-1" />
+                        ) : (
+                          <Mic className="w-4 h-4 mr-1" />
+                        )}
+                        {isListening ? 'Stop' : 'Voice'}
+                      </Button>
+                    </div>
                   </div>
                   <Button
                     onClick={() => handleSendMessage(youtubeInput, "youtube")}
