@@ -7,6 +7,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { FileUploadDialog, YouTubeThumbnail } from "@/components/chat-features";
+import { VideoCard, VideoSummary } from "@/components/youtube-video";
 import {
   MessageSquare,
   Search,
