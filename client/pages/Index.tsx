@@ -285,30 +285,14 @@ export default function Index() {
             </ScrollArea>
 
             {/* User Account */}
-            <div className="p-4 border-t border-chat-border">
-              <div className="flex items-center gap-3 mb-3">
-                <Avatar className="w-8 h-8">
-                  <AvatarImage src="/api/placeholder/32/32" />
-                  <AvatarFallback>JD</AvatarFallback>
-                </Avatar>
-                <div className="flex-1">
-                  <p className="text-sm font-medium text-foreground">
-                    John Doe
-                  </p>
-                  <p className="text-xs text-muted-foreground">
-                    john@example.com
-                  </p>
-                </div>
-              </div>
+            <div className="p-3 border-t border-border">
               <div className="flex items-center justify-between">
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="text-muted-foreground"
-                >
-                  <Settings className="w-4 h-4 mr-2" />
-                  Settings
-                </Button>
+                <div className="flex items-center gap-3">
+                  <Avatar className="w-6 h-6">
+                    <AvatarFallback className="text-xs">U</AvatarFallback>
+                  </Avatar>
+                  <span className="text-sm text-foreground">User</span>
+                </div>
                 <ThemeToggle />
               </div>
             </div>
