@@ -541,13 +541,26 @@ export default function Index() {
                         }
                       }}
                     />
+                    {youtubeInput && !youtubeInput.includes('youtube.com') && !youtubeInput.includes('youtu.be') && (
+                      <p className="text-xs text-yellow-600 mt-1">⚠️ Please enter a valid YouTube URL</p>
+                    )}
                   </div>
                   <Button
                     onClick={() => handleSendMessage(youtubeInput, "youtube")}
-                    disabled={!youtubeInput.trim() || isLoading}
-                    className="bg-primary hover:bg-primary/90 w-full sm:w-auto"
+                    disabled={!youtubeInput.trim() || isLoading || (!youtubeInput.includes('youtube.com') && !youtubeInput.includes('youtu.be'))}
+                    className="bg-red-600 hover:bg-red-700 text-white w-full sm:w-auto"
                   >
-                    Summarize
+                    {isLoading ? (
+                      <div className="flex items-center gap-2">
+                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                        Processing...
+                      </div>
+                    ) : (
+                      <>
+                        <Play className="w-4 h-4 mr-2" />
+                        Summarize
+                      </>
+                    )}
                   </Button>
                 </div>
               </TabsContent>
