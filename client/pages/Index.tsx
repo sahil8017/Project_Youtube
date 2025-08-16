@@ -72,28 +72,34 @@ export default function Index() {
   const [chats] = useState<Chat[]>([
     {
       id: "1",
-      title: "Product Roadmap Discussion",
-      lastMessage: "Sure, I can help you...",
+      title: "10 Minute React Tutorial",
+      lastMessage: "This video covers React basics including components, props, and state management...",
       timestamp: new Date(Date.now() - 1000 * 60 * 30),
       isActive: true,
     },
     {
       id: "2",
-      title: "React Best Practices",
-      lastMessage: "Here are some key points...",
+      title: "Node.js Crash Course 2024",
+      lastMessage: "Key points: Express setup, middleware, routing, and database integration...",
       timestamp: new Date(Date.now() - 1000 * 60 * 60 * 2),
     },
     {
       id: "3",
-      title: "YouTube Video Analysis",
-      lastMessage: "The video discusses...",
+      title: "AI and Machine Learning Explained",
+      lastMessage: "The video explains neural networks, training processes, and practical applications...",
       timestamp: new Date(Date.now() - 1000 * 60 * 60 * 24),
     },
     {
       id: "4",
-      title: "API Documentation Help",
-      lastMessage: "I'll explain the endpoints...",
+      title: "TypeScript for Beginners",
+      lastMessage: "Covers type annotations, interfaces, generics, and TypeScript configuration...",
       timestamp: new Date(Date.now() - 1000 * 60 * 60 * 24 * 2),
+    },
+    {
+      id: "5",
+      title: "CSS Grid vs Flexbox",
+      lastMessage: "Comparison of layout methods, when to use each, and practical examples...",
+      timestamp: new Date(Date.now() - 1000 * 60 * 60 * 24 * 3),
     },
   ]);
 
