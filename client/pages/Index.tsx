@@ -247,7 +247,7 @@ export default function Index() {
                       }`}
                     >
                       <div className="flex items-start gap-3">
-                        <MessageSquare className="w-4 h-4 mt-1 flex-shrink-0" />
+                        <Play className="w-4 h-4 mt-1 flex-shrink-0 text-red-600" />
                         <div className="flex-1 min-w-0">
                           <p className="font-medium text-sm truncate">
                             {chat.title}
