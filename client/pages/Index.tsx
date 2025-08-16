@@ -154,21 +154,19 @@ export default function Index() {
     {
       id: "2",
       type: "ai",
-      content:
-        '🎵 **"Never Gonna Give You Up" by Rick Astley**\n\n**Video Summary:**\nThis iconic 1987 music video features Rick Astley performing his hit song "Never Gonna Give You Up." The video has become a cultural phenomenon, particularly known for "Rickrolling."\n\n**Key Points:**\n• Duration: 3:33\n• Views: 1.4B+ views\n• Classic 80s production style\n• Features Rick Astley\'s distinctive dance moves\n• Became an internet meme in the 2000s\n\n**Main Themes:**\n- Commitment and loyalty in relationships\n- 80s pop culture and music\n- Internet culture and memes',
+      content: "I've analyzed the YouTube video. This is \"Never Gonna Give You Up\" by Rick Astley, the famous 1987 hit that became an internet meme known as \"Rickrolling.\"\n\nKey details:\n• Duration: 3:33\n• Views: 1.4B+\n• Released: 1987\n• Genre: Pop\n\nThe video features classic 80s production style and Rick Astley's distinctive dance moves. It became a cultural phenomenon when internet users began using it for pranks in the 2000s.",
       timestamp: new Date(Date.now() - 1000 * 60 * 14),
     },
     {
       id: "3",
       type: "user",
-      content: "Can you provide more details about the cultural impact?",
+      content: "Can you tell me more about why it became a meme?",
       timestamp: new Date(Date.now() - 1000 * 60 * 10),
     },
     {
       id: "4",
       type: "ai",
-      content:
-        "**Cultural Impact of 'Never Gonna Give You Up':**\n\n🌐 **Internet Phenomenon:**\n• 'Rickrolling' became one of the most famous internet memes\n• Started around 2007 when users would trick others into clicking the video\n• The song experienced a massive resurgence decades after its release\n\n📈 **Numbers & Recognition:**\n• Over 1.4 billion YouTube views\n• Reached #1 in 25 countries when originally released\n• Rick Astley embraced the meme culture\n• Featured in countless remixes and parodies\n\n🎭 **Legacy:**\n• Transformed from 80s hit to modern internet culture staple\n• Demonstrates how digital platforms can revive classic content\n• Rick Astley became an unexpected internet celebrity\n• The song is now synonymous with pranks and surprises online",
+      content: "The \"Rickrolling\" meme started around 2007. People would share links claiming to be something else, but they actually led to this music video. It became popular because:\n\n• The song is unexpectedly catchy and wholesome\n• Rick Astley's earnest performance contrasts with prank context\n• The video quality and 80s aesthetic became nostalgic\n• Rick Astley himself embraced the meme good-naturedly\n\nIt's one of the most enduring internet memes and helped introduce the song to new generations.",
       timestamp: new Date(Date.now() - 1000 * 60 * 8),
     },
   ]);
