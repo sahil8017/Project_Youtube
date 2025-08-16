@@ -155,7 +155,7 @@ export default function Index() {
       id: "2",
       type: "ai",
       content:
-        '🎵 **"Never Gonna Give You Up" by Rick Astley**\n\n**Video Summary:**\nThis iconic 1987 music video features Rick Astley performing his hit song "Never Gonna Give You Up." The video has become a cultural phenomenon, particularly known for "Rickrolling."\n\n**Key Points:**\n• Duration: 3:33\n• Views: 1.4B+ views\n• Classic 80s production style\n• Features Rick Astley\'s distinctive dance moves\n• Became an internet meme in the 2000s\n\n**Main Themes:**\n- Commitment and loyalty in relationships\n- 80s pop culture and music\n- Internet culture and memes',
+        '🎵 **"Never Gonna Give You Up" by Rick Astley**\n\n**Video Summary:**\nThis iconic 1987 music video features Rick Astley performing his hit song "Never Gonna Give You Up." The video has become a cultural phenomenon, particularly known for "Rickrolling."\n\n**Key Points:**\n• Duration: 3:33\n• Views: 1.4B+ views\n• Classic 80s production style\n�� Features Rick Astley\'s distinctive dance moves\n• Became an internet meme in the 2000s\n\n**Main Themes:**\n- Commitment and loyalty in relationships\n- 80s pop culture and music\n- Internet culture and memes',
       timestamp: new Date(Date.now() - 1000 * 60 * 14),
     },
     {
@@ -470,15 +470,6 @@ export default function Index() {
                     <span className="text-xs text-muted-foreground">
                       {formatTime(message.timestamp)}
                     </span>
-                    {message.type === "ai" && (
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        className="w-6 h-6 text-muted-foreground"
-                      >
-                        <Volume2 className="w-3 h-3" />
-                      </Button>
-                    )}
                   </div>
                 </div>
 
