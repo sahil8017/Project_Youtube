@@ -15,10 +15,28 @@ import { Upload, FileText, Image, File, FileVideo, FileAudio, X } from "lucide-r
 
 export function FileUploadDialog({ children }: { children: React.ReactNode }) {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+  const [isDragOver, setIsDragOver] = useState(false);
 
   const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(event.target.files || []);
-    setSelectedFiles(files);
+    setSelectedFiles(prev => [...prev, ...files]);
+  };
+
+  const handleDrop = (event: React.DragEvent) => {
+    event.preventDefault();
+    setIsDragOver(false);
+    const files = Array.from(event.dataTransfer.files);
+    setSelectedFiles(prev => [...prev, ...files]);
+  };
+
+  const handleDragOver = (event: React.DragEvent) => {
+    event.preventDefault();
+    setIsDragOver(true);
+  };
+
+  const handleDragLeave = (event: React.DragEvent) => {
+    event.preventDefault();
+    setIsDragOver(false);
   };
 
   const removeFile = (index: number) => {
