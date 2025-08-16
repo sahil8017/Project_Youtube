@@ -76,8 +76,38 @@ export default function Index() {
 
     checkIsMobile();
     window.addEventListener("resize", checkIsMobile);
+
+    // Initialize speech recognition
+    if (typeof window !== "undefined" && ("webkitSpeechRecognition" in window || "SpeechRecognition" in window)) {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      const recognitionInstance = new SpeechRecognition();
+      recognitionInstance.continuous = false;
+      recognitionInstance.interimResults = false;
+      recognitionInstance.lang = "en-US";
+
+      recognitionInstance.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        if (currentTab === "youtube") {
+          setYoutubeInput(prev => prev + (prev ? " " : "") + transcript);
+        } else {
+          setQueryInput(prev => prev + (prev ? " " : "") + transcript);
+        }
+        setIsListening(false);
+      };
+
+      recognitionInstance.onerror = () => {
+        setIsListening(false);
+      };
+
+      recognitionInstance.onend = () => {
+        setIsListening(false);
+      };
+
+      setRecognition(recognitionInstance);
+    }
+
     return () => window.removeEventListener("resize", checkIsMobile);
-  }, []);
+  }, [currentTab]);
 
   // Mock data
   const [chats] = useState<Chat[]>([
