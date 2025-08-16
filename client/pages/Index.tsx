@@ -475,7 +475,7 @@ export default function Index() {
                 <div className="flex flex-col sm:flex-row gap-3">
                   <div className="flex-1">
                     <Input
-                      placeholder="Paste YouTube video URL here..."
+                      placeholder="Paste YouTube URL here (e.g., https://youtube.com/watch?v=...)"
                       value={youtubeInput}
                       onChange={(e) => setYoutubeInput(e.target.value)}
                       className="bg-chat-input border-chat-border"
