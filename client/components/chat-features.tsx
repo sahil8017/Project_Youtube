@@ -48,39 +48,59 @@ export function FileUploadDialog({ children }: { children: React.ReactNode }) {
         <DialogHeader>
           <DialogTitle>Upload Files</DialogTitle>
           <DialogDescription>
-            Select files to attach to your message. Supports images, documents,
-            and other file types.
+            Upload images, documents, videos, audio files, and more. Multiple files supported.
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
-          <div className="grid w-full max-w-sm items-center gap-1.5">
-            <Label htmlFor="file">File</Label>
-            <Input id="file" type="file" multiple onChange={handleFileSelect} />
+          <div className="grid w-full items-center gap-1.5">
+            <Label htmlFor="file">Choose Files</Label>
+            <Input
+              id="file"
+              type="file"
+              multiple
+              onChange={handleFileSelect}
+              accept="image/*,video/*,audio/*,.pdf,.doc,.docx,.txt,.csv,.xlsx,.ppt,.pptx,.zip,.rar"
+              className="cursor-pointer"
+            />
+            <p className="text-xs text-muted-foreground">
+              Supports: Images, Videos, Audio, PDF, Word, Excel, PowerPoint, Text, Archives
+            </p>
           </div>
           {selectedFiles.length > 0 && (
-            <div className="space-y-2">
-              <Label>Selected Files:</Label>
+            <div className="space-y-2 max-h-60 overflow-y-auto">
+              <Label>Selected Files ({selectedFiles.length}):</Label>
               {selectedFiles.map((file, index) => (
                 <div
                   key={index}
-                  className="flex items-center gap-2 p-2 border rounded-md"
+                  className="flex items-center gap-3 p-3 border rounded-lg bg-accent/50"
                 >
-                  {file.type.startsWith("image/") ? (
-                    <Image className="w-4 h-4" />
-                  ) : (
-                    <FileText className="w-4 h-4" />
-                  )}
-                  <span className="text-sm truncate">{file.name}</span>
-                  <span className="text-xs text-muted-foreground">
-                    ({(file.size / 1024).toFixed(1)} KB)
-                  </span>
+                  {getFileIcon(file.type)}
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-medium truncate">{file.name}</p>
+                    <p className="text-xs text-muted-foreground">
+                      {formatFileSize(file.size)} • {file.type || 'Unknown type'}
+                    </p>
+                  </div>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="w-6 h-6 text-muted-foreground hover:text-destructive"
+                    onClick={() => removeFile(index)}
+                  >
+                    <X className="w-3 h-3" />
+                  </Button>
                 </div>
               ))}
             </div>
           )}
         </div>
-        <DialogFooter>
-          <Button type="submit">Upload & Send</Button>
+        <DialogFooter className="gap-2">
+          <Button variant="outline" onClick={() => setSelectedFiles([])}>
+            Clear All
+          </Button>
+          <Button type="submit" disabled={selectedFiles.length === 0}>
+            Upload {selectedFiles.length > 0 && `(${selectedFiles.length})`} & Send
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
