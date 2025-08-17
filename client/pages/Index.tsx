@@ -332,23 +332,23 @@ export default function Index() {
         {sidebarOpen && (
           <>
             {/* Sidebar Header */}
-            <div className="p-6 border-b border-border/30 bg-gradient-to-r from-primary/5 to-primary/10 backdrop-blur-sm">
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-xl font-bold bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">
+            <div className="p-4 border-b border-border/20">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-lg font-semibold text-foreground">
                   YouTube Summarizer
                 </h2>
                 <Button
                   variant="ghost"
                   size="icon"
                   onClick={() => setSidebarOpen(false)}
-                  className="text-muted-foreground hover:bg-primary/10 hover:text-primary transition-all duration-200 rounded-xl"
+                  className="text-muted-foreground hover:bg-accent hover:text-foreground transition-all duration-200 rounded-lg h-8 w-8"
                 >
                   <X className="w-4 h-4" />
                 </Button>
               </div>
 
               <Button
-                className="w-full mb-6 bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary text-primary-foreground rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 font-medium"
+                className="w-full mb-2 bg-primary hover:bg-primary/90 text-primary-foreground rounded-lg py-2.5 font-medium transition-all duration-200 hover:shadow-md"
                 onClick={() => {}}
               >
                 <Plus className="w-4 h-4 mr-2" />
