@@ -124,6 +124,11 @@ export default function Index() {
   // Keyboard shortcuts
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      // Don't interfere with input field shortcuts
+      if (e.target === inputRef.current) {
+        return;
+      }
+
       if (e.ctrlKey || e.metaKey) {
         switch (e.key) {
           case "m":
@@ -140,6 +145,13 @@ export default function Index() {
             e.preventDefault();
             if (inputRef.current) {
               inputRef.current.focus();
+            }
+            break;
+          case "a":
+          case "A":
+            // Don't prevent Ctrl+A in input field
+            if (document.activeElement !== inputRef.current) {
+              e.preventDefault();
             }
             break;
         }
