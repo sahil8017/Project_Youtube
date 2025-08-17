@@ -496,7 +496,8 @@ export default function Index() {
                   size="icon"
                   className={`w-8 h-8 ${isListening ? "text-red-500 bg-red-50" : "text-muted-foreground hover:bg-accent"}`}
                   onClick={handleSpeechRecognition}
-                  title="Voice input"
+                  title={isListening ? "Stop voice input (Ctrl+M)" : "Start voice input (Ctrl+M)"}
+                  aria-label={isListening ? "Stop voice input" : "Start voice input"}
                 >
                   {isListening ? (
                     <MicOff className="w-4 h-4" />
