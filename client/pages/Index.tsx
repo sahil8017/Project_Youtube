@@ -251,10 +251,24 @@ export default function Index() {
       setQueryInput(value);
     }
 
-    // Auto-expand for new chats only
-    if (isNewChat && inputRef.current) {
-      const lineCount = value.split("\n").length;
-      const newRows = Math.min(Math.max(lineCount, 1), 6); // Max 6 rows
+    // Auto-expand like ChatGPT (always expand, similar to ChatGPT behavior)
+    if (inputRef.current) {
+      // Reset height to auto to calculate new height
+      inputRef.current.style.height = 'auto';
+      const scrollHeight = inputRef.current.scrollHeight;
+      const lineHeight = 24; // 1.5rem in pixels
+      const minHeight = 50; // Minimum height
+      const maxHeight = 200; // Maximum height before scrolling
+
+      if (scrollHeight <= maxHeight) {
+        inputRef.current.style.height = Math.max(scrollHeight, minHeight) + 'px';
+        inputRef.current.style.overflowY = 'hidden';
+      } else {
+        inputRef.current.style.height = maxHeight + 'px';
+        inputRef.current.style.overflowY = 'auto';
+      }
+
+      const newRows = Math.min(Math.max(Math.ceil(scrollHeight / lineHeight), 1), 8);
       setInputRows(newRows);
     }
   };
