@@ -197,6 +197,9 @@ export default function Index() {
     if (!content.trim()) return;
 
     setIsLoading(true);
+    setIsNewChat(false);
+    setInputRows(1);
+
     // Simulate API call
     setTimeout(() => {
       setIsLoading(false);
@@ -205,7 +208,26 @@ export default function Index() {
       } else {
         setYoutubeInput("");
       }
+      // Refocus input after sending
+      if (inputRef.current) {
+        inputRef.current.focus();
+      }
     }, 2000);
+  };
+
+  const handleInputChange = (value: string) => {
+    if (currentTab === "youtube") {
+      setYoutubeInput(value);
+    } else {
+      setQueryInput(value);
+    }
+
+    // Auto-expand for new chats only
+    if (isNewChat && inputRef.current) {
+      const lineCount = value.split('\n').length;
+      const newRows = Math.min(Math.max(lineCount, 1), 6); // Max 6 rows
+      setInputRows(newRows);
+    }
   };
 
   const handleSpeechRecognition = () => {
