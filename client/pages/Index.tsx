@@ -498,7 +498,7 @@ export default function Index() {
         </ScrollArea>
 
         {/* Input Section */}
-        <div className="border-t border-border/30 bg-gradient-to-t from-background/90 to-background/70 backdrop-blur-xl p-6 transition-all duration-200 ease-in-out">
+        <div className="border-t border-border bg-background p-4 transition-all duration-200 ease-in-out">
           <div className="max-w-3xl mx-auto">
             <div className="relative">
               <Textarea
