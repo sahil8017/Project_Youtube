@@ -437,6 +437,7 @@ export default function Index() {
           <div className="max-w-3xl mx-auto">
             <div className="relative">
               <Textarea
+                ref={inputRef}
                 key={currentTab}
                 placeholder={
                   currentTab === "youtube"
@@ -444,15 +445,16 @@ export default function Index() {
                     : "Ask a question..."
                 }
                 value={currentTab === "youtube" ? youtubeInput : queryInput}
-                onChange={(e) => {
-                  if (currentTab === "youtube") {
-                    setYoutubeInput(e.target.value);
-                  } else {
-                    setQueryInput(e.target.value);
-                  }
+                onChange={(e) => handleInputChange(e.target.value)}
+                className={`w-full bg-input/80 backdrop-blur-sm border-border/50 rounded-xl resize-none pr-16 transition-all duration-300 ease-in-out focus:bg-input focus:border-primary/50 focus:shadow-lg focus:shadow-primary/5 ${
+                  isNewChat ? 'overflow-y-hidden' : 'overflow-y-auto'
+                }`}
+                style={{
+                  minHeight: '50px',
+                  height: isNewChat ? `${Math.max(50, inputRows * 24 + 26)}px` : '50px',
+                  maxHeight: isNewChat ? '170px' : '50px'
                 }}
-                className="w-full bg-input border-border rounded-xl resize-none pr-16 min-h-[50px] transition-all duration-200 ease-in-out"
-                rows={1}
+                rows={isNewChat ? inputRows : 1}
                 onKeyDown={(e) => {
                   if (e.key === "Enter" && !e.shiftKey) {
                     e.preventDefault();
