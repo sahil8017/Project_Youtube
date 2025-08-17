@@ -98,11 +98,31 @@ export default function Index() {
       recognitionInstance.lang = "en-US";
 
       recognitionInstance.onresult = (event) => {
-        const transcript = event.results[0][0].transcript;
-        if (currentTab === "youtube") {
-          setYoutubeInput((prev) => prev + (prev ? " " : "") + transcript);
-        } else {
-          setQueryInput((prev) => prev + (prev ? " " : "") + transcript);
+        const transcript = event.results[0][0].transcript.trim();
+        if (transcript) {
+          if (currentTab === "youtube") {
+            setYoutubeInput(prev => {
+              const newValue = prev ? `${prev} ${transcript}` : transcript;
+              // Trigger auto-expansion
+              setTimeout(() => {
+                if (inputRef.current) {
+                  handleInputChange(newValue);
+                }
+              }, 10);
+              return newValue;
+            });
+          } else {
+            setQueryInput(prev => {
+              const newValue = prev ? `${prev} ${transcript}` : transcript;
+              // Trigger auto-expansion
+              setTimeout(() => {
+                if (inputRef.current) {
+                  handleInputChange(newValue);
+                }
+              }, 10);
+              return newValue;
+            });
+          }
         }
         setIsListening(false);
       };
