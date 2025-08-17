@@ -490,17 +490,14 @@ export default function Index() {
                 }
                 value={currentTab === "youtube" ? youtubeInput : queryInput}
                 onChange={(e) => handleInputChange(e.target.value)}
-                className={`w-full bg-input/80 backdrop-blur-sm border-border/50 rounded-xl resize-none pr-16 transition-all duration-300 ease-in-out focus:bg-input focus:border-primary/50 focus:shadow-lg focus:shadow-primary/5 ${
-                  isNewChat ? "overflow-y-hidden" : "overflow-y-auto"
-                }`}
+                className="w-full bg-background border border-border rounded-xl resize-none pr-16 transition-all duration-200 ease-in-out focus:outline-none focus:border-primary/50 focus:shadow-lg focus:shadow-primary/5 overflow-x-hidden scrollbar-thin scrollbar-track-transparent scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-600"
                 style={{
                   minHeight: "50px",
-                  height: isNewChat
-                    ? `${Math.max(50, inputRows * 24 + 26)}px`
-                    : "50px",
-                  maxHeight: isNewChat ? "170px" : "50px",
+                  height: "auto",
+                  maxHeight: "200px",
+                  lineHeight: "1.5",
                 }}
-                rows={isNewChat ? inputRows : 1}
+                rows={1}
                 onKeyDown={(e) => {
                   if (e.key === "Enter" && !e.shiftKey) {
                     e.preventDefault();
