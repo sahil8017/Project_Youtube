@@ -473,21 +473,21 @@ export default function Index() {
 
             {isLoading && (
               <div className="flex gap-4 justify-start animate-in fade-in slide-in-from-bottom-4 duration-500">
-                <div className="w-8 h-8 bg-gradient-to-br from-primary/20 to-primary/10 backdrop-blur-sm rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg border border-primary/10">
+                <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
                   <Bot className="w-4 h-4 text-primary" />
                 </div>
-                <div className="bg-gradient-to-br from-accent/50 to-accent/30 backdrop-blur-sm rounded-2xl px-5 py-4 shadow-sm border border-accent/20">
+                <div className="bg-accent/50 rounded-2xl px-4 py-3 border border-border/50">
                   <div className="flex gap-1">
                     <div
-                      className="w-2 h-2 bg-primary/60 rounded-full animate-bounce"
+                      className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce"
                       style={{ animationDelay: "0ms" }}
                     />
                     <div
-                      className="w-2 h-2 bg-primary/60 rounded-full animate-bounce"
+                      className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce"
                       style={{ animationDelay: "150ms" }}
                     />
                     <div
-                      className="w-2 h-2 bg-primary/60 rounded-full animate-bounce"
+                      className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce"
                       style={{ animationDelay: "300ms" }}
                     />
                   </div>
