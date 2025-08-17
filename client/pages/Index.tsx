@@ -126,17 +126,17 @@ export default function Index() {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.ctrlKey || e.metaKey) {
         switch (e.key) {
-          case 'm':
-          case 'M':
+          case "m":
+          case "M":
             e.preventDefault();
             handleSpeechRecognition();
             break;
-          case 'u':
-          case 'U':
+          case "u":
+          case "U":
             e.preventDefault();
             // Focus will trigger file upload dialog if implemented
             break;
-          case '/':
+          case "/":
             e.preventDefault();
             if (inputRef.current) {
               inputRef.current.focus();
@@ -146,8 +146,8 @@ export default function Index() {
       }
     };
 
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
   // Mock data
@@ -253,7 +253,7 @@ export default function Index() {
 
     // Auto-expand for new chats only
     if (isNewChat && inputRef.current) {
-      const lineCount = value.split('\n').length;
+      const lineCount = value.split("\n").length;
       const newRows = Math.min(Math.max(lineCount, 1), 6); // Max 6 rows
       setInputRows(newRows);
     }
@@ -477,12 +477,14 @@ export default function Index() {
                 value={currentTab === "youtube" ? youtubeInput : queryInput}
                 onChange={(e) => handleInputChange(e.target.value)}
                 className={`w-full bg-input/80 backdrop-blur-sm border-border/50 rounded-xl resize-none pr-16 transition-all duration-300 ease-in-out focus:bg-input focus:border-primary/50 focus:shadow-lg focus:shadow-primary/5 ${
-                  isNewChat ? 'overflow-y-hidden' : 'overflow-y-auto'
+                  isNewChat ? "overflow-y-hidden" : "overflow-y-auto"
                 }`}
                 style={{
-                  minHeight: '50px',
-                  height: isNewChat ? `${Math.max(50, inputRows * 24 + 26)}px` : '50px',
-                  maxHeight: isNewChat ? '170px' : '50px'
+                  minHeight: "50px",
+                  height: isNewChat
+                    ? `${Math.max(50, inputRows * 24 + 26)}px`
+                    : "50px",
+                  maxHeight: isNewChat ? "170px" : "50px",
                 }}
                 rows={isNewChat ? inputRows : 1}
                 onKeyDown={(e) => {
@@ -504,7 +506,11 @@ export default function Index() {
                     setInputRows(1);
                   }
                 }}
-                aria-label={currentTab === "youtube" ? "Enter YouTube URL" : "Ask a question"}
+                aria-label={
+                  currentTab === "youtube"
+                    ? "Enter YouTube URL"
+                    : "Ask a question"
+                }
                 role="textbox"
                 aria-multiline="true"
               />
@@ -525,8 +531,14 @@ export default function Index() {
                   size="icon"
                   className={`w-8 h-8 ${isListening ? "text-red-500 bg-red-50" : "text-muted-foreground hover:bg-accent"}`}
                   onClick={handleSpeechRecognition}
-                  title={isListening ? "Stop voice input (Ctrl+M)" : "Start voice input (Ctrl+M)"}
-                  aria-label={isListening ? "Stop voice input" : "Start voice input"}
+                  title={
+                    isListening
+                      ? "Stop voice input (Ctrl+M)"
+                      : "Start voice input (Ctrl+M)"
+                  }
+                  aria-label={
+                    isListening ? "Stop voice input" : "Start voice input"
+                  }
                 >
                   {isListening ? (
                     <MicOff className="w-4 h-4" />
