@@ -222,28 +222,28 @@ export default function Index() {
     },
   ]);
 
-  const [messages] = useState<Message[]>([
+  const [messages, setMessages] = useState<Message[]>([
     {
-      id: "1",
+      id: "msg-1",
       type: "user",
       content: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
       timestamp: new Date(Date.now() - 1000 * 60 * 15),
     },
     {
-      id: "2",
+      id: "msg-2",
       type: "ai",
       content:
         'I\'ve analyzed the YouTube video. This is "Never Gonna Give You Up" by Rick Astley, the famous 1987 hit that became an internet meme known as "Rickrolling."\n\nKey details:\n• Duration: 3:33\n• Views: 1.4B+\n• Released: 1987\n• Genre: Pop\n\nThe video features classic 80s production style and Rick Astley\'s distinctive dance moves. It became a cultural phenomenon when internet users began using it for pranks in the 2000s.',
       timestamp: new Date(Date.now() - 1000 * 60 * 14),
     },
     {
-      id: "3",
+      id: "msg-3",
       type: "user",
       content: "Can you tell me more about why it became a meme?",
       timestamp: new Date(Date.now() - 1000 * 60 * 10),
     },
     {
-      id: "4",
+      id: "msg-4",
       type: "ai",
       content:
         "The \"Rickrolling\" meme started around 2007. People would share links claiming to be something else, but they actually led to this music video. It became popular because:\n\n• The song is unexpectedly catchy and wholesome\n• Rick Astley's earnest performance contrasts with prank context\n• The video quality and 80s aesthetic became nostalgic\n• Rick Astley himself embraced the meme good-naturedly\n\nIt's one of the most enduring internet memes and helped introduce the song to new generations.",
@@ -255,24 +255,51 @@ export default function Index() {
     content: string,
     type: "query" | "youtube",
   ) => {
-    if (!content.trim()) return;
+    if (!content.trim() || isLoading) return;
 
-    setIsLoading(true);
-    setIsNewChat(false);
+    const newMessage: Message = {
+      id: `msg-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+      type: "user",
+      content: content.trim(),
+      timestamp: new Date(),
+    };
+
+    // Add user message immediately
+    setMessages(prev => [...prev, newMessage]);
+
+    // Clear input immediately
+    if (type === "query") {
+      setQueryInput("");
+    } else {
+      setYoutubeInput("");
+    }
+
+    // Reset input height
+    if (inputRef.current) {
+      inputRef.current.style.height = '50px';
+    }
     setInputRows(1);
+    setIsNewChat(false);
+    setIsLoading(true);
 
     // Simulate API call
     setTimeout(() => {
+      const aiResponse: Message = {
+        id: `msg-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+        type: "ai",
+        content: `This is a simulated response to: "${content}". In a real implementation, this would be the actual AI response from your YouTube summarizer API.`,
+        timestamp: new Date(),
+      };
+
+      setMessages(prev => [...prev, aiResponse]);
       setIsLoading(false);
-      if (type === "query") {
-        setQueryInput("");
-      } else {
-        setYoutubeInput("");
-      }
+
       // Refocus input after sending
-      if (inputRef.current) {
-        inputRef.current.focus();
-      }
+      setTimeout(() => {
+        if (inputRef.current) {
+          inputRef.current.focus();
+        }
+      }, 100);
     }, 2000);
   };
 
@@ -444,83 +471,104 @@ export default function Index() {
         </div>
 
         {/* Messages Area */}
-        <ScrollArea className="flex-1 px-4 py-6 custom-scrollbar">
-          <div className="max-w-4xl mx-auto space-y-6 overflow-x-hidden">
-            {messages.map((message, index) => (
-              <div
-                key={message.id}
-                className={`flex gap-4 ${message.type === "user" ? "justify-end" : "justify-start"} opacity-0 animate-in fade-in slide-in-from-bottom-4 duration-700`}
-                style={{
-                  animationDelay: `${index * 150}ms`,
-                  animationFillMode: 'forwards'
-                }}
-              >
-                {message.type === "ai" && (
-                  <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-200 hover:bg-primary/20">
-                    <Bot className="w-4 h-4 text-primary" />
-                  </div>
-                )}
-
+        <div className="flex-1 overflow-hidden">
+          <div
+            className="h-full px-4 py-6 overflow-y-auto custom-scrollbar"
+            style={{ maxHeight: 'calc(100vh - 200px)' }}
+          >
+            <div className="max-w-3xl mx-auto space-y-6">
+              {messages.map((message) => (
                 <div
-                  className={`max-w-[80%] sm:max-w-[70%] ${message.type === "user" ? "order-first" : ""}`}
+                  key={message.id}
+                  className={`flex w-full ${message.type === "user" ? "justify-end" : "justify-start"} group`}
                 >
-                  <div
-                    className={`group rounded-2xl px-4 py-3 max-w-none transition-all duration-200 hover:shadow-lg ${
-                      message.type === "user"
-                        ? "bg-primary text-primary-foreground"
-                        : "bg-accent/50 text-accent-foreground border border-border/50"
-                    }`}
-                  >
-                    <div className="whitespace-pre-wrap text-sm leading-relaxed">
-                      {message.content}
+                  <div className={`flex gap-3 max-w-[85%] ${message.type === "user" ? "flex-row-reverse" : "flex-row"}`}>
+                    {/* Avatar */}
+                    <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-200 hover:bg-primary/20">
+                      {message.type === "ai" ? (
+                        <Bot className="w-4 h-4 text-primary" />
+                      ) : (
+                        <User className="w-4 h-4 text-primary" />
+                      )}
+                    </div>
+
+                    {/* Message Bubble */}
+                    <div className="flex flex-col min-w-0 flex-1">
+                      <div
+                        className={`rounded-2xl px-4 py-3 transition-all duration-200 hover:shadow-md ${
+                          message.type === "user"
+                            ? "bg-primary text-primary-foreground ml-auto"
+                            : "bg-accent/50 text-accent-foreground border border-border/50 mr-auto"
+                        }`}
+                      >
+                        <div className="text-sm leading-relaxed whitespace-pre-wrap break-words">
+                          {message.content}
+                        </div>
+                      </div>
+
+                      {/* Timestamp */}
+                      <div className={`flex mt-1 px-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ${
+                        message.type === "user" ? "justify-end" : "justify-start"
+                      }`}>
+                        <span className="text-xs text-muted-foreground">
+                          {formatTime(message.timestamp)}
+                        </span>
+                      </div>
                     </div>
                   </div>
+                </div>
+              ))}
 
-                  <div className="flex items-center gap-2 mt-1 px-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                    <span className="text-xs text-muted-foreground">
-                      {formatTime(message.timestamp)}
-                    </span>
+              {isLoading && (
+                <div className="flex w-full justify-start group">
+                  <div className="flex gap-3 max-w-[85%]">
+                    <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                      <Bot className="w-4 h-4 text-primary" />
+                    </div>
+                    <div className="bg-accent/50 rounded-2xl px-4 py-3 border border-border/50">
+                      <div className="flex gap-1">
+                        <div
+                          className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce"
+                          style={{ animationDelay: "0ms" }}
+                        />
+                        <div
+                          className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce"
+                          style={{ animationDelay: "150ms" }}
+                        />
+                        <div
+                          className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce"
+                          style={{ animationDelay: "300ms" }}
+                        />
+                      </div>
+                    </div>
                   </div>
                 </div>
-
-                {message.type === "user" && (
-                  <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-200 hover:bg-primary/20">
-                    <User className="w-4 h-4 text-primary" />
-                  </div>
-                )}
-              </div>
-            ))}
-
-            {isLoading && (
-              <div className="flex gap-4 justify-start animate-in fade-in slide-in-from-bottom-4 duration-500">
-                <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
-                  <Bot className="w-4 h-4 text-primary" />
-                </div>
-                <div className="bg-accent/50 rounded-2xl px-4 py-3 border border-border/50">
-                  <div className="flex gap-1">
-                    <div
-                      className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce"
-                      style={{ animationDelay: "0ms" }}
-                    />
-                    <div
-                      className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce"
-                      style={{ animationDelay: "150ms" }}
-                    />
-                    <div
-                      className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce"
-                      style={{ animationDelay: "300ms" }}
-                    />
-                  </div>
-                </div>
-              </div>
-            )}
+              )}
+            </div>
           </div>
-        </ScrollArea>
+        </div>
 
         {/* Input Section */}
-        <div className="border-t border-border bg-background p-4 transition-all duration-200 ease-in-out">
-          <div className="max-w-3xl mx-auto">
-            <div className="relative">
+        <div className="border-t border-border bg-background/95 backdrop-blur-sm sticky bottom-0">
+          <div className="max-w-3xl mx-auto p-4">
+            {/* Switch Mode Button */}
+            <div className="flex items-center justify-center mb-3">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() =>
+                  setCurrentTab(currentTab === "youtube" ? "query" : "youtube")
+                }
+                className="text-xs text-muted-foreground hover:text-foreground transition-colors duration-200 px-3 py-1 rounded-full border border-border/50 hover:border-border"
+              >
+                {currentTab === "youtube"
+                  ? "💬 Switch to Questions"
+                  : "🎬 Switch to YouTube URL"}
+              </Button>
+            </div>
+
+            {/* Input Area */}
+            <div className="relative bg-background border border-border rounded-xl shadow-sm transition-all duration-200 focus-within:border-primary/50 focus-within:shadow-lg focus-within:shadow-primary/5">
               <Textarea
                 ref={inputRef}
                 key={currentTab}
@@ -531,7 +579,7 @@ export default function Index() {
                 }
                 value={currentTab === "youtube" ? youtubeInput : queryInput}
                 onChange={(e) => handleInputChange(e.target.value)}
-                className="w-full bg-background border border-border rounded-xl resize-none pr-16 transition-all duration-200 ease-in-out focus:outline-none focus:border-primary/50 focus:shadow-lg focus:shadow-primary/5 overflow-x-hidden scrollbar-thin scrollbar-track-transparent scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-600"
+                className="w-full bg-transparent border-0 resize-none pr-16 text-sm leading-relaxed transition-all duration-200 ease-in-out focus:outline-none focus:ring-0 placeholder:text-muted-foreground/60 custom-scrollbar"
                 style={{
                   minHeight: "50px",
                   height: "auto",
@@ -577,12 +625,12 @@ export default function Index() {
                 role="textbox"
                 aria-multiline="true"
               />
-              <div className="absolute right-3 bottom-3 flex items-center gap-2">
+              <div className="absolute right-2 bottom-2 flex items-center gap-1">
                 <FileUploadDialog>
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="w-8 h-8 text-muted-foreground hover:bg-accent"
+                    className="w-8 h-8 text-muted-foreground hover:bg-accent rounded-lg transition-all duration-200"
                     title="Upload files (Ctrl+U)"
                     aria-label="Upload files"
                   >
@@ -592,7 +640,7 @@ export default function Index() {
                 <Button
                   variant="ghost"
                   size="icon"
-                  className={`w-8 h-8 ${isListening ? "text-red-500 bg-red-50" : "text-muted-foreground hover:bg-accent"}`}
+                  className={`w-8 h-8 rounded-lg transition-all duration-200 ${isListening ? "text-red-500 bg-red-50 dark:bg-red-950" : "text-muted-foreground hover:bg-accent"}`}
                   onClick={handleSpeechRecognition}
                   title={
                     isListening
@@ -611,7 +659,7 @@ export default function Index() {
                 </Button>
                 <Button
                   size="icon"
-                  className="w-8 h-8 bg-primary hover:bg-primary/90 text-primary-foreground"
+                  className="w-8 h-8 bg-primary hover:bg-primary/90 text-primary-foreground rounded-lg transition-all duration-200 hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
                   onClick={() => {
                     if (currentTab === "youtube") {
                       handleSendMessage(youtubeInput, "youtube");
@@ -632,19 +680,11 @@ export default function Index() {
               </div>
             </div>
 
-            <div className="flex items-center justify-center mt-3">
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() =>
-                  setCurrentTab(currentTab === "youtube" ? "query" : "youtube")
-                }
-                className="text-xs text-muted-foreground hover:text-foreground transition-colors duration-200"
-              >
-                {currentTab === "youtube"
-                  ? "💬 Switch to Questions"
-                  : "🎬 Switch to YouTube URL"}
-              </Button>
+            {/* Footer Note */}
+            <div className="text-center mt-3">
+              <p className="text-xs text-muted-foreground/60">
+                YouTube Summarizer can make mistakes. Check important info.
+              </p>
             </div>
           </div>
         </div>
