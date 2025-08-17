@@ -499,6 +499,13 @@ export default function Index() {
                 }}
                 rows={1}
                 onKeyDown={(e) => {
+                  // Handle Ctrl+A to select only input text
+                  if (e.key === "a" && (e.ctrlKey || e.metaKey)) {
+                    e.stopPropagation();
+                    // Let the default behavior handle text selection in the input
+                    return;
+                  }
+
                   if (e.key === "Enter" && !e.shiftKey) {
                     e.preventDefault();
                     if (currentTab === "youtube") {
@@ -515,6 +522,10 @@ export default function Index() {
                       setQueryInput("");
                     }
                     setInputRows(1);
+                    // Reset input height
+                    if (inputRef.current) {
+                      inputRef.current.style.height = '50px';
+                    }
                   }
                 }}
                 aria-label={
