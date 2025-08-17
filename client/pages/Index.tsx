@@ -68,10 +68,13 @@ export default function Index() {
 
   useEffect(() => {
     const checkIsMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-      if (window.innerWidth >= 768) {
-        setSidebarOpen(true);
-      } else {
+      const wasMobile = isMobile;
+      const nowMobile = window.innerWidth < 768;
+      setIsMobile(nowMobile);
+
+      // Only auto-close sidebar when switching from desktop to mobile
+      // Don't auto-open when switching from mobile to desktop
+      if (!wasMobile && nowMobile && sidebarOpen) {
         setSidebarOpen(false);
       }
     };
