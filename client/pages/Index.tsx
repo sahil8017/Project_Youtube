@@ -327,7 +327,7 @@ export default function Index() {
       <div
         className={`${sidebarOpen ? "w-80" : "w-0"} ${
           isMobile ? "fixed left-0 top-0 h-full z-20" : "relative"
-        } transition-all duration-500 ease-in-out bg-gradient-to-b from-background/95 to-background/90 backdrop-blur-xl border-r border-border/50 flex flex-col overflow-hidden shadow-2xl`}
+        } transition-all duration-300 ease-in-out bg-accent/30 border-r border-border flex flex-col overflow-hidden`}
       >
         {sidebarOpen && (
           <>
