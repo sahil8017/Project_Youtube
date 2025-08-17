@@ -485,7 +485,8 @@ export default function Index() {
                     variant="ghost"
                     size="icon"
                     className="w-8 h-8 text-muted-foreground hover:bg-accent"
-                    title="Upload files"
+                    title="Upload files (Ctrl+U)"
+                    aria-label="Upload files"
                   >
                     <Paperclip className="w-4 h-4" />
                   </Button>
