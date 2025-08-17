@@ -344,19 +344,19 @@ export default function Index() {
       {/* Main Chat Area */}
       <div className="flex-1 flex flex-col">
         {/* Top Controls */}
-        <div className="flex items-center justify-between p-4 border-b border-border bg-background">
-          <div className="flex items-center gap-3">
+        <div className="flex items-center justify-between p-6 border-b border-border/30 bg-gradient-to-r from-background/80 to-background/60 backdrop-blur-xl">
+          <div className="flex items-center gap-4">
             {!sidebarOpen && (
               <Button
                 variant="ghost"
                 size="icon"
                 onClick={() => setSidebarOpen(true)}
-                className="text-muted-foreground hover:bg-accent"
+                className="text-muted-foreground hover:bg-primary/10 hover:text-primary transition-all duration-200 rounded-xl"
               >
                 <Menu className="w-4 h-4" />
               </Button>
             )}
-            <h1 className="text-lg font-medium text-foreground">
+            <h1 className="text-2xl font-bold bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
               {chats.find((chat) => chat.isActive)?.title || "New Chat"}
             </h1>
           </div>
