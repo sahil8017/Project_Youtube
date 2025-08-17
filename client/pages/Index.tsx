@@ -68,6 +68,8 @@ export default function Index() {
   const [inputRows, setInputRows] = useState(1);
   const [isNewChat, setIsNewChat] = useState(true);
   const inputRef = React.useRef<HTMLTextAreaElement>(null);
+  const messagesEndRef = React.useRef<HTMLDivElement>(null);
+  const chatContainerRef = React.useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const checkIsMobile = () => {
@@ -274,11 +276,8 @@ export default function Index() {
       setYoutubeInput("");
     }
 
-    // Reset input height
-    if (inputRef.current) {
-      inputRef.current.style.height = '50px';
-    }
-    setInputRows(1);
+    // DON'T reset input height - preserve expansion like ChatGPT
+    // setInputRows(1);
     setIsNewChat(false);
     setIsLoading(true);
 
@@ -310,13 +309,13 @@ export default function Index() {
       setQueryInput(value);
     }
 
-    // Auto-expand like ChatGPT (always expand, similar to ChatGPT behavior)
+    // Auto-expand like ChatGPT - preserve height and expand smoothly
     if (inputRef.current) {
       // Reset height to auto to calculate new height
       inputRef.current.style.height = 'auto';
       const scrollHeight = inputRef.current.scrollHeight;
       const lineHeight = 24; // 1.5rem in pixels
-      const minHeight = 50; // Minimum height
+      const minHeight = 52; // Minimum height (slightly larger for better UX)
       const maxHeight = 200; // Maximum height before scrolling
 
       if (scrollHeight <= maxHeight) {
@@ -331,6 +330,32 @@ export default function Index() {
       setInputRows(newRows);
     }
   };
+
+  // Preserve text and caret position during tab switch
+  const handleTabSwitch = () => {
+    const currentInput = inputRef.current;
+    const caretPosition = currentInput?.selectionStart || 0;
+    const currentValue = currentTab === "youtube" ? youtubeInput : queryInput;
+
+    setCurrentTab(currentTab === "youtube" ? "query" : "youtube");
+
+    // Preserve the text and caret position
+    setTimeout(() => {
+      if (inputRef.current) {
+        inputRef.current.focus();
+        inputRef.current.setSelectionRange(caretPosition, caretPosition);
+        // Trigger auto-expansion for the preserved text
+        handleInputChange(currentValue);
+      }
+    }, 10);
+  };
+
+  // Auto-scroll to bottom when new messages arrive
+  React.useEffect(() => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [messages, isLoading]);
 
   const handleSpeechRecognition = () => {
     if (!recognition) {
@@ -473,16 +498,21 @@ export default function Index() {
         {/* Messages Area */}
         <div className="flex-1 overflow-hidden">
           <div
+            ref={chatContainerRef}
             className="h-full px-4 py-6 overflow-y-auto custom-scrollbar"
-            style={{ maxHeight: 'calc(100vh - 200px)' }}
+            style={{ height: 'calc(100vh - 140px)' }}
           >
-            <div className="max-w-3xl mx-auto space-y-6">
-              {messages.map((message) => (
+            <div className="max-w-4xl mx-auto space-y-6">
+              {messages.map((message, index) => (
                 <div
                   key={message.id}
-                  className={`flex w-full ${message.type === "user" ? "justify-end" : "justify-start"} group`}
+                  className={`flex w-full ${message.type === "user" ? "justify-end" : "justify-start"} group animate-in fade-in slide-in-from-bottom-4 duration-500`}
+                  style={{
+                    animationDelay: `${Math.min(index * 100, 500)}ms`,
+                    animationFillMode: 'forwards'
+                  }}
                 >
-                  <div className={`flex gap-3 max-w-[85%] ${message.type === "user" ? "flex-row-reverse" : "flex-row"}`}>
+                  <div className={`flex gap-4 max-w-[80%] sm:max-w-[75%] ${message.type === "user" ? "flex-row-reverse" : "flex-row"}`}>
                     {/* Avatar */}
                     <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-200 hover:bg-primary/20">
                       {message.type === "ai" ? (
@@ -495,10 +525,10 @@ export default function Index() {
                     {/* Message Bubble */}
                     <div className="flex flex-col min-w-0 flex-1">
                       <div
-                        className={`rounded-2xl px-4 py-3 transition-all duration-200 hover:shadow-md ${
+                        className={`rounded-2xl px-4 py-3 transition-all duration-200 hover:shadow-lg ${
                           message.type === "user"
-                            ? "bg-primary text-primary-foreground ml-auto"
-                            : "bg-accent/50 text-accent-foreground border border-border/50 mr-auto"
+                            ? "bg-primary text-primary-foreground shadow-sm"
+                            : "bg-accent/50 text-accent-foreground border border-border/50 shadow-sm"
                         }`}
                       >
                         <div className="text-sm leading-relaxed whitespace-pre-wrap break-words">
@@ -507,7 +537,7 @@ export default function Index() {
                       </div>
 
                       {/* Timestamp */}
-                      <div className={`flex mt-1 px-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ${
+                      <div className={`flex mt-2 px-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ${
                         message.type === "user" ? "justify-end" : "justify-start"
                       }`}>
                         <span className="text-xs text-muted-foreground">
@@ -520,13 +550,13 @@ export default function Index() {
               ))}
 
               {isLoading && (
-                <div className="flex w-full justify-start group">
-                  <div className="flex gap-3 max-w-[85%]">
+                <div className="flex w-full justify-start group animate-in fade-in slide-in-from-bottom-4 duration-500">
+                  <div className="flex gap-4 max-w-[80%] sm:max-w-[75%]">
                     <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
                       <Bot className="w-4 h-4 text-primary" />
                     </div>
-                    <div className="bg-accent/50 rounded-2xl px-4 py-3 border border-border/50">
-                      <div className="flex gap-1">
+                    <div className="bg-accent/50 rounded-2xl px-4 py-3 border border-border/50 shadow-sm">
+                      <div className="flex gap-1.5">
                         <div
                           className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce"
                           style={{ animationDelay: "0ms" }}
@@ -544,6 +574,9 @@ export default function Index() {
                   </div>
                 </div>
               )}
+
+              {/* Scroll anchor */}
+              <div ref={messagesEndRef} />
             </div>
           </div>
         </div>
@@ -552,14 +585,12 @@ export default function Index() {
         <div className="border-t border-border bg-background/95 backdrop-blur-sm sticky bottom-0">
           <div className="max-w-3xl mx-auto p-4">
             {/* Switch Mode Button */}
-            <div className="flex items-center justify-center mb-3">
+            <div className="flex items-center justify-center mb-4">
               <Button
                 variant="ghost"
                 size="sm"
-                onClick={() =>
-                  setCurrentTab(currentTab === "youtube" ? "query" : "youtube")
-                }
-                className="text-xs text-muted-foreground hover:text-foreground transition-colors duration-200 px-3 py-1 rounded-full border border-border/50 hover:border-border"
+                onClick={handleTabSwitch}
+                className="text-xs text-muted-foreground hover:text-foreground transition-all duration-200 px-4 py-2 rounded-full border border-border/30 hover:border-border/60 hover:bg-accent/30 backdrop-blur-sm"
               >
                 {currentTab === "youtube"
                   ? "💬 Switch to Questions"
@@ -568,10 +599,9 @@ export default function Index() {
             </div>
 
             {/* Input Area */}
-            <div className="relative bg-background border border-border rounded-xl shadow-sm transition-all duration-200 focus-within:border-primary/50 focus-within:shadow-lg focus-within:shadow-primary/5">
+            <div className="relative bg-background border border-border rounded-xl shadow-sm transition-all duration-200 focus-within:border-primary/50 focus-within:shadow-lg focus-within:shadow-primary/10">
               <Textarea
                 ref={inputRef}
-                key={currentTab}
                 placeholder={
                   currentTab === "youtube"
                     ? "Enter YouTube URL..."
@@ -579,22 +609,26 @@ export default function Index() {
                 }
                 value={currentTab === "youtube" ? youtubeInput : queryInput}
                 onChange={(e) => handleInputChange(e.target.value)}
-                className="w-full bg-transparent border-0 resize-none pr-16 text-sm leading-relaxed transition-all duration-200 ease-in-out focus:outline-none focus:ring-0 placeholder:text-muted-foreground/60 custom-scrollbar"
+                className="w-full bg-transparent border-0 resize-none pr-20 pl-4 py-3 text-sm leading-relaxed transition-all duration-150 ease-in-out focus:outline-none focus:ring-0 placeholder:text-muted-foreground/60 custom-scrollbar"
                 style={{
-                  minHeight: "50px",
+                  minHeight: "52px",
                   height: "auto",
                   maxHeight: "200px",
                   lineHeight: "1.5",
                 }}
                 rows={1}
                 onKeyDown={(e) => {
-                  // Handle Ctrl+A to select only input text
+                  // Handle Ctrl+A to select all text in textarea (ChatGPT behavior)
                   if (e.key === "a" && (e.ctrlKey || e.metaKey)) {
+                    e.preventDefault();
                     e.stopPropagation();
-                    // Let the default behavior handle text selection in the input
+                    if (inputRef.current) {
+                      inputRef.current.select();
+                    }
                     return;
                   }
 
+                  // Enter to send, Shift+Enter for new line
                   if (e.key === "Enter" && !e.shiftKey) {
                     e.preventDefault();
                     if (currentTab === "youtube") {
@@ -602,18 +636,14 @@ export default function Index() {
                     } else {
                       handleSendMessage(queryInput, "query");
                     }
+                  } else if (e.key === "Enter" && e.shiftKey) {
+                    // Allow Shift+Enter to create new lines
+                    // Default behavior will handle this
                   } else if (e.key === "Escape") {
-                    // Clear input on Escape
+                    // Unfocus textarea on Escape (ChatGPT behavior)
                     e.preventDefault();
-                    if (currentTab === "youtube") {
-                      setYoutubeInput("");
-                    } else {
-                      setQueryInput("");
-                    }
-                    setInputRows(1);
-                    // Reset input height
                     if (inputRef.current) {
-                      inputRef.current.style.height = '50px';
+                      inputRef.current.blur();
                     }
                   }
                 }}
@@ -625,7 +655,7 @@ export default function Index() {
                 role="textbox"
                 aria-multiline="true"
               />
-              <div className="absolute right-2 bottom-2 flex items-center gap-1">
+              <div className="absolute right-2 bottom-2 flex items-center gap-1.5">
                 <FileUploadDialog>
                   <Button
                     variant="ghost"
@@ -681,8 +711,8 @@ export default function Index() {
             </div>
 
             {/* Footer Note */}
-            <div className="text-center mt-3">
-              <p className="text-xs text-muted-foreground/60">
+            <div className="text-center mt-4">
+              <p className="text-xs text-muted-foreground/50 leading-relaxed">
                 YouTube Summarizer can make mistakes. Check important info.
               </p>
             </div>
