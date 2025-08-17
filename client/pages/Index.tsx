@@ -464,8 +464,20 @@ export default function Index() {
                     } else {
                       handleSendMessage(queryInput, "query");
                     }
+                  } else if (e.key === "Escape") {
+                    // Clear input on Escape
+                    e.preventDefault();
+                    if (currentTab === "youtube") {
+                      setYoutubeInput("");
+                    } else {
+                      setQueryInput("");
+                    }
+                    setInputRows(1);
                   }
                 }}
+                aria-label={currentTab === "youtube" ? "Enter YouTube URL" : "Ask a question"}
+                role="textbox"
+                aria-multiline="true"
               />
               <div className="absolute right-3 bottom-3 flex items-center gap-2">
                 <FileUploadDialog>
