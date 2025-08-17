@@ -65,6 +65,9 @@ export default function Index() {
   const [recognition, setRecognition] = useState<SpeechRecognition | null>(
     null,
   );
+  const [inputRows, setInputRows] = useState(1);
+  const [isNewChat, setIsNewChat] = useState(true);
+  const inputRef = React.useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
     const checkIsMobile = () => {
