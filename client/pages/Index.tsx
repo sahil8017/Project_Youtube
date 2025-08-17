@@ -357,8 +357,8 @@ export default function Index() {
             </div>
 
             {/* Chat List */}
-            <ScrollArea className="flex-1 px-3">
-              <div className="space-y-1">
+            <ScrollArea className="flex-1 px-3 mt-4 custom-scrollbar">
+              <div className="space-y-2">
                 {chats
                   .filter((chat) =>
                     chat.title
@@ -368,13 +368,19 @@ export default function Index() {
                   .map((chat) => (
                     <div
                       key={chat.id}
-                      className={`px-3 py-2 rounded-lg cursor-pointer transition-colors ${
+                      className={`group px-3 py-3 rounded-lg cursor-pointer transition-all duration-200 ${
                         chat.isActive
-                          ? "bg-accent text-foreground"
-                          : "text-muted-foreground hover:bg-accent hover:text-foreground"
+                          ? "bg-accent text-foreground shadow-sm"
+                          : "text-muted-foreground hover:bg-accent/50 hover:text-foreground"
                       }`}
                     >
-                      <p className="text-sm truncate">{chat.title}</p>
+                      <div className="flex items-center gap-3">
+                        <div className="w-2 h-2 rounded-full bg-primary/40 group-hover:bg-primary/60 transition-colors"></div>
+                        <p className="text-sm truncate font-medium">{chat.title}</p>
+                      </div>
+                      <p className="text-xs text-muted-foreground mt-1 pl-5 truncate opacity-0 group-hover:opacity-100 transition-opacity">
+                        {formatTime(chat.timestamp)}
+                      </p>
                     </div>
                   ))}
               </div>
