@@ -365,14 +365,15 @@ export default function Index() {
         {/* Messages Area */}
         <ScrollArea className="flex-1 px-4 py-6">
           <div className="max-w-4xl mx-auto space-y-6">
-            {messages.map((message) => (
+            {messages.map((message, index) => (
               <div
                 key={message.id}
-                className={`flex gap-4 ${message.type === "user" ? "justify-end" : "justify-start"}`}
+                className={`flex gap-4 ${message.type === "user" ? "justify-end" : "justify-start"} animate-in fade-in slide-in-from-bottom-4 duration-500`}
+                style={{ animationDelay: `${index * 100}ms` }}
               >
                 {message.type === "ai" && (
-                  <div className="w-8 h-8 bg-chat-ai-bubble rounded-full flex items-center justify-center flex-shrink-0">
-                    <Bot className="w-4 h-4 text-chat-ai-text" />
+                  <div className="w-8 h-8 bg-gradient-to-br from-primary/20 to-primary/10 backdrop-blur-sm rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg border border-primary/10">
+                    <Bot className="w-4 h-4 text-primary" />
                   </div>
                 )}
 
@@ -380,18 +381,18 @@ export default function Index() {
                   className={`max-w-[80%] sm:max-w-[70%] ${message.type === "user" ? "order-first" : ""}`}
                 >
                   <div
-                    className={`rounded-lg px-4 py-3 max-w-none ${
+                    className={`group rounded-2xl px-5 py-4 max-w-none transition-all duration-200 hover:scale-[1.02] hover:shadow-lg ${
                       message.type === "user"
-                        ? "bg-chat-user-bubble text-chat-user-text"
-                        : "bg-chat-ai-bubble text-chat-ai-text"
+                        ? "bg-gradient-to-br from-primary to-primary/90 text-primary-foreground shadow-md shadow-primary/20"
+                        : "bg-gradient-to-br from-accent/50 to-accent/30 backdrop-blur-sm text-accent-foreground shadow-sm border border-accent/20"
                     }`}
                   >
-                    <div className="whitespace-pre-wrap text-sm leading-relaxed">
+                    <div className="whitespace-pre-wrap text-sm leading-relaxed font-medium">
                       {message.content}
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-2 mt-2 px-2">
+                  <div className="flex items-center gap-2 mt-2 px-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                     <span className="text-xs text-muted-foreground">
                       {formatTime(message.timestamp)}
                     </span>
@@ -399,8 +400,8 @@ export default function Index() {
                 </div>
 
                 {message.type === "user" && (
-                  <div className="w-8 h-8 bg-chat-user-bubble rounded-full flex items-center justify-center flex-shrink-0">
-                    <User className="w-4 h-4 text-chat-user-text" />
+                  <div className="w-8 h-8 bg-gradient-to-br from-primary to-primary/80 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg">
+                    <User className="w-4 h-4 text-primary-foreground" />
                   </div>
                 )}
               </div>
