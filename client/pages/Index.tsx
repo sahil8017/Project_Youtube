@@ -520,6 +520,8 @@ export default function Index() {
                       ? !youtubeInput.trim()
                       : !queryInput.trim()) || isLoading
                   }
+                  title="Send message (Enter)"
+                  aria-label="Send message"
                 >
                   <Send className="w-4 h-4" />
                 </Button>
