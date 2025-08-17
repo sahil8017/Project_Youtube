@@ -121,6 +121,35 @@ export default function Index() {
     return () => window.removeEventListener("resize", checkIsMobile);
   }, [currentTab]);
 
+  // Keyboard shortcuts
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.ctrlKey || e.metaKey) {
+        switch (e.key) {
+          case 'm':
+          case 'M':
+            e.preventDefault();
+            handleSpeechRecognition();
+            break;
+          case 'u':
+          case 'U':
+            e.preventDefault();
+            // Focus will trigger file upload dialog if implemented
+            break;
+          case '/':
+            e.preventDefault();
+            if (inputRef.current) {
+              inputRef.current.focus();
+            }
+            break;
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
   // Mock data
   const [chats] = useState<Chat[]>([
     {
