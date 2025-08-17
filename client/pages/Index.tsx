@@ -429,11 +429,14 @@ export default function Index() {
             {messages.map((message, index) => (
               <div
                 key={message.id}
-                className={`flex gap-4 ${message.type === "user" ? "justify-end" : "justify-start"} animate-in fade-in slide-in-from-bottom-4 duration-500`}
-                style={{ animationDelay: `${index * 100}ms` }}
+                className={`flex gap-4 ${message.type === "user" ? "justify-end" : "justify-start"} opacity-0 animate-in fade-in slide-in-from-bottom-4 duration-700`}
+                style={{
+                  animationDelay: `${index * 150}ms`,
+                  animationFillMode: 'forwards'
+                }}
               >
                 {message.type === "ai" && (
-                  <div className="w-8 h-8 bg-gradient-to-br from-primary/20 to-primary/10 backdrop-blur-sm rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg border border-primary/10">
+                  <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-200 hover:bg-primary/20">
                     <Bot className="w-4 h-4 text-primary" />
                   </div>
                 )}
@@ -442,18 +445,18 @@ export default function Index() {
                   className={`max-w-[80%] sm:max-w-[70%] ${message.type === "user" ? "order-first" : ""}`}
                 >
                   <div
-                    className={`group rounded-2xl px-5 py-4 max-w-none transition-all duration-200 hover:scale-[1.02] hover:shadow-lg ${
+                    className={`group rounded-2xl px-4 py-3 max-w-none transition-all duration-200 hover:shadow-lg ${
                       message.type === "user"
-                        ? "bg-gradient-to-br from-primary to-primary/90 text-primary-foreground shadow-md shadow-primary/20"
-                        : "bg-gradient-to-br from-accent/50 to-accent/30 backdrop-blur-sm text-accent-foreground shadow-sm border border-accent/20"
+                        ? "bg-primary text-primary-foreground"
+                        : "bg-accent/50 text-accent-foreground border border-border/50"
                     }`}
                   >
-                    <div className="whitespace-pre-wrap text-sm leading-relaxed font-medium">
+                    <div className="whitespace-pre-wrap text-sm leading-relaxed">
                       {message.content}
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-2 mt-2 px-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                  <div className="flex items-center gap-2 mt-1 px-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                     <span className="text-xs text-muted-foreground">
                       {formatTime(message.timestamp)}
                     </span>
@@ -461,8 +464,8 @@ export default function Index() {
                 </div>
 
                 {message.type === "user" && (
-                  <div className="w-8 h-8 bg-gradient-to-br from-primary to-primary/80 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg">
-                    <User className="w-4 h-4 text-primary-foreground" />
+                  <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-200 hover:bg-primary/20">
+                    <User className="w-4 h-4 text-primary" />
                   </div>
                 )}
               </div>
